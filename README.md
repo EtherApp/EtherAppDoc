@@ -1,4 +1,4 @@
 EtherAppDoc
 ===========
 
-Documentation an Presentation of EtherApp
+Documentation and presentation of EtherApp
