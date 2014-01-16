@@ -1,0 +1,30 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Abk   rzungsverzeichnis	abk.tex	/^\\section{Abkürzungsverzeichnis}$/;"	s
+Addressing	PhasenMethoden.tex	/^\\label{subsec:PhasenMethoden}$/;"	b
+Allgemeines	TechnischeAspekte.tex	/^\\label{sec:TechnischeAspekte}$/;"	u
+Anwendungsbereiche	Anwendungsbereiche.tex	/^\\section{Anwendungsbereiche}$/;"	s
+Audio- und Video-   bertragung	Anwendungsbereiche.tex	/^Eine Herstellerabhängigkeit durch ein proprietäres Application Programming Interface (API) entfällt damit vollständig und gewährleistet einen reibungslosen Betrieb unterschiedlicher Geräte.$/;"	u
+Control	PhasenMethoden.tex	/^Des Weiteren beinhaltet sie die Statusvariablen, welche für das Eventing notwendig sind.\\citeque{upnp-dbe-93-109}$/;"	b
+Control Point	KlassenArten.tex	/^\\label{subsec:KlassenArten}$/;"	b
+Description	PhasenMethoden.tex	/^Anfragen von Control Points werden dann zunächst vom Proxy beantwortet, was die Effizienz in großen Netzwerken erheblich steigert.$/;"	b
+Discovery und Advertisement	PhasenMethoden.tex	/^Schließlich sollen Geräte sofort nach dem Anschließen und ohne Konfiguration benutzt werden können.\\citeque{upnp-dbe-66-67}\\citeque{upnp-dbe-69-73}\\citeque{ip-wiki-en}$/;"	b
+Einf   hrung	Einfuehrung.tex	/^\\section{Einführung}$/;"	s
+Einleitung	Anwendungsbereiche.tex	/^\\label{sub:Anwendungsbereiche}$/;"	u
+Eventing	PhasenMethoden.tex	/^Dies kann zum Beispiel erfolgen, wenn der aufgerufene Dienst nicht existiert (invalid Action) oder die übergebenen Argumente ungültig sind (invalid Args).\\citeque{serv-arc-web-45-78}\\citeque{upnp-dbe-111-127}$/;"	b
+Haussteuerung	Anwendungsbereiche.tex	/^Dabei können neben der direkten Telefonie über UPnP auch Einstellungen in den Anlagen, wie zum Beispiel das Einrichten von Rufweiterschaltungen und die Konfiguration von Endgeräten, vorgenommen werden.\\citeque{upnptelephony-pdf}$/;"	u
+Historie	Historie.tex	/^\\section{Historie}$/;"	s
+Logische Ger   te innerhalb von UPnP A  V	KlassenArten.tex	/^\\subsection{Logische Geräte innerhalb von UPnP A\/V}$/;"	u
+Media Renderer	KlassenArten.tex	/^Diese Funktionalität wird aber üblicherweise vom Media Renderer implementiert, da dieser die Medien tatsächlich ausgibt.\\citeque{TJB}$/;"	b
+Media Server	KlassenArten.tex	/^\\end{center}$/;"	b
+PC-Peripherieger   te und Netzwerkkomponenten	Anwendungsbereiche.tex	/^Diese Hauptanwendungsgebiete werden im Folgenden detaillierter erläutert.$/;"	u
+Phasen und Methoden bei Kommunikation   ber UPnP	PhasenMethoden.tex	/^\\subsection{Phasen und Methoden bei Kommunikation über UPnP}$/;"	u
+Presentation	PhasenMethoden.tex	/^Zum Abbestellen von Event-Abonnements kann die Methode UNSUBSCRIBE verwendet werden.\\citeque{upnp-dbe-129-149}$/;"	b
+Selbstst   ndigkeitserkl   rung	erklaerung.tex	/^\\section{Selbstständigkeitserklärung}$/;"	s
+Sicherheit von UPnP	Sicherheit.tex	/^\\subsection{Sicherheit von UPnP}$/;"	u
+Technische Aspekte	TechnischeAspekte.tex	/^%4.1 Einleitung (Jörg)[4]$/;"	s
+UPnP und DLNA im Alltag	UPNP_im_Alltag.tex	/^\\section{UPnP und DLNA im Alltag}$/;"	s
