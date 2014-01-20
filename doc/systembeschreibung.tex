@@ -7,6 +7,21 @@
 \textit{Etherpad Lite} ist ein kollaborativer Online-Editor. Anwender können Textdokumente, sogenannte Pads, gemeinschaftlich und in Echtzeit online bearbeiten. Die Oberfläche ist browserbasiert. Innerhalb der Pads ist durch farbliche Markierung gekennzeichnet, welche Bearbeitungen von welchem Nutzer vorgenommen wurden. Eine Instanz des Etherpad Lite ist standardmäßig offen. Damit kann jeder Anwender Pads anlegen und bearbeiten. Das System speichert Revisionen des Pad-Inhalts, die später abgerufen werden können. Die Oberfläche bietet außerdem die Möglichkeit zum Export des Inhalts in verschiedene Dokumentformate sowie einen Onlinechat zur Verständigung unter den Autoren.\\
 Das Projekt ist Open-Source und damit quelloffen und frei für jeden.
 
+\subsection{Abgrenzung und Zielstellung}
+Die Oberfläche des Etherpad Lite ist schlicht und übersichtlich gehalten. Sie bietet benutzerrelevante Funktionen, die sich auf ein einzelnes Pad beziehen. Administrative Funktionen, die bestimmten Benutzerkreisen vorbehalten bleiben müssen, sind auf der Oberfläche nicht implementiert. Es gibt somit keine Möglichkeit, z.B. alle verfügbaren Pads anzuzeigen oder einzelne Pads zu löschen.\\
+Es existiert eine umfangreiche HTTP-API, über die diverse Funktionen verfügbar gemacht werden. Für die praktische Verwendung dieser API ist ein Frontend sinnvoll.\\
+Das Projekt EtherApp hat zum Ziel, einen Teil der API-Funktionen abzubilden und eine App zur Administration verschiedener Etherpad-Lite-Instanzen zu entwickeln. Das beinhaltet insbesondere folgende Funktionen:
+\begin{itemize}
+	\item Anzeige aller Pads
+	\item Anzeige von Meta-Informationen (Benutzer online, Revisionen, Datum, ...) für einzelne Pads
+	\item Anzeige des Pad-Inhalts
+	\item Anlegen neuer Pads
+	\item Teilen der Pad-URL über soziale Dienste und E-Mail
+	\item Rücksetzen des Inhalts auf ältere Revision
+	\item Anzeige und Verwaltung von Gruppen
+	\item Verwaltung mehrerer EPL-Instanzen und Profilverwaltung
+\end{itemize}
+
 % section system (end)
 
 
