@@ -1,29 +1,11 @@
 \section{Systembeschreibung} % (fold)
 \label{sec:system}
 
-\subsection{ShowPad}
-\label{sub:system:ShowPad}
+\subsection{Etherpad Lite}
+\label{sub:system:etherpad}
 
-Das ShowPad\footnote{\url{http://pad.shownot.es}} ist ein Webservice und Teil des Shownotes-Projektes\footnote{\url{http://shownot.es}}.
-Es dient dem gemeinsamen und gleichzeitigen Verfassen von Sendungsnotizen, auch Shownotes genannt, zu Podcasts. Dies Funktion wird durch ein, in den Webservice integriertes, EtherPad\footnote{\url{http://etherpad.org/}} bereit gestellt. 
-Hierbei handelt es sich im Wesentlichen um einen kollaborativen Online Editor, welcher für das Schreiben von Sendungsnotizen mittles Erweiterungen angepasst wurde.
-Einem registrierten Benutzer bietet das ShowPad die Möglichkeit neue Dokumente (Pads) für Sendungsnotizen, über die Hauptseite, anzulegen oder auf ein bereits existierendes Dokument zuzugreifen.  
-
-\subsection{Shownotes Message Service}
-\label{sub:system-sms}
-
-Der Shownotes-Message-Service (SMS) \footnote{\url{https://github.com/shownotes/shownotes-message-service}} ist ein Notification Service für Jabber/XMPP-Clients.
-Er informiert angemeldete Benutzer, auf deren Jabberaccounts, über anstehende Live-Podcasts, sofern ein Benutzer den entsprechenden Podcast vorher abonniert hat.
-Des Weiteren kann ein BeNntzer über die Erstellung eines Pads im ShowPad informiert werden.
-Die Registrierung und die anschließende Aktivierung von Notifications erfolgt direkt durch den Benutzer via Jabber/XMPP-Client.
-Eine weitere Möglichkeit bietet eine REST-API, welche die gleichen Einstellungen über einen externen Service zulässt.
-
-\subsection{Hörsuppe.de}
-\label{sub:system:Hoersuppe}
-
-Die \glqq Hörsuppe\grqq{ }\footnote{\url{http://hoersuppe.de}} ist ein Onlinekalender für Podcasts.
-Nutzer können hier aktuelle oder zukünftige Sendetermine von Podcasts abrufen.
-Webservices bietet die Seite eine REST-API, welche sowohl dem ShowPad als auch dem SMS als Datenbasis dient\citeque{IEEE802-11}.
+\textit{Etherpad Lite} ist ein kollaborativer Online-Editor. Anwender können Textdokumente, sogenannte Pads, gemeinschaftlich und in Echtzeit online bearbeiten. Die Oberfläche ist browserbasiert. Innerhalb der Pads ist durch farbliche Markierung gekennzeichnet, welche Bearbeitungen von welchem Nutzer vorgenommen wurden. Eine Instanz des Etherpad Lite ist standardmäßig offen. Damit kann jeder Anwender Pads anlegen und bearbeiten. Das System speichert Revisionen des Pad-Inhalts, die später abgerufen werden können. Die Oberfläche bietet außerdem die Möglichkeit zum Export des Inhalts in verschiedene Dokumentformate sowie einen Onlinechat zur Verständigung unter den Autoren.\\
+Das Projekt ist Open-Source und damit quelloffen und frei für jeden.
 
 % section system (end)
 
