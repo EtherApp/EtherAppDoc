@@ -1,17 +1,15 @@
-all: EtherAppDokumentation.tex inhalt.tex abk.tex quellen.bib literatur.bib deckblatt.tex
+all: EtherAppDokumentation.tex inhalt.tex abk.tex quellen.bib deckblatt.tex
 	@echo "Creating the pdf file."
 	pdflatex EtherAppDokumentation.tex 
 	bibtex que.aux
-	bibtex lit.aux
 	pdflatex EtherAppDokumentation.tex 
 	pdflatex EtherAppDokumentation.tex 
 	pdflatex EtherAppDokumentation.tex 
 
-show: EtherAppDokumentation.tex inhalt.tex abk.tex quellen.bib literatur.bib deckblatt.tex
+show: EtherAppDokumentation.tex inhalt.tex abk.tex quellen.bib deckblatt.tex
 	@echo "Creating the pdf file."
 	pdflatex EtherAppDokumentation.tex 
 	bibtex que.aux
-	bibtex lit.aux
 	pdflatex EtherAppDokumentation.tex 
 	pdflatex EtherAppDokumentation.tex 
 	pdflatex EtherAppDokumentation.tex 
@@ -21,5 +19,5 @@ show: EtherAppDokumentation.tex inhalt.tex abk.tex quellen.bib literatur.bib dec
 
 clean:
 	@echo "Cleaning the directory"
-	rm -f *.dvi *.mt* *.aux *.log *.maf *.out *.toc *.tex~ *.log~ *.bbl *.blg
+	rm -f *.dvi *.mt* *.aux *.log *.maf *.out *.toc *.tex~ *.log~ *.bbl *.blg tags
 
