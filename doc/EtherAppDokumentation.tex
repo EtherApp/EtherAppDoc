@@ -48,6 +48,9 @@
 % Silbentrennung direkt mit /- oder /"
 %\hyphenation{ge-wuensch-ten} 
 
+% include pdfs directly into tex
+\usepackage{pdfpages}
+
 % LISTINGS
 \usepackage{color} % Wird benoetigt fuer listing
 
@@ -62,7 +65,8 @@
   belowcaptionskip=1\baselineskip,
   breaklines=true,
   frame=single,
-  xleftmargin=\parindent,
+  xleftmargin=1.5cm,
+  xrightmargin=0.5cm,
   language=PHP,
   showstringspaces=false,
   basicstyle=\scriptsize\ttfamily,
@@ -107,8 +111,8 @@
     \clearpage % Seitenende erzwingen und formatierungen auf standart
 
     \pagestyle{fancy} 
-    \rhead{\thepage} \chead{} \lhead{Dokumentation EtherApp} 
-    \lfoot{Ferdinand Malcher, Martin Stoffers} \cfoot{} \rfoot{\today}
+    \rhead{\thepage} \chead{} \lhead{Abschlussbericht} 
+    \lfoot{Martin Stoffers} \cfoot{} \rfoot{\today}
     \renewcommand{\headrulewidth}{0.4pt} %obere Trennlinie sichtbar setzen
     \renewcommand{\footrulewidth}{0.4pt} %untere Trennlinie sichtbar setzen
 
@@ -122,14 +126,15 @@
 
     \parindent0pt % Keine Absatzeinrückungen
     \parskip2ex %Absatzhöhe
-    \input{systembeschreibung}
-  
+    
+    fmnjksfnsdjkfnsdfnjkdsnfsdjkn\citeque{IEEE802-11}
+    %\input{systembeschreibung}
+
     \newpage
        
     \begin{flushleft}% Flattersatz
       \begin{appendix}
 
-        \setcounter{secnumdepth}{0} 
         \fancyhf{} %alle Kopf- und Fußzeilenfelder bereinigen
         \renewcommand{\headrulewidth}{0.0pt} %obere Trennlinie unsichtbar
         \renewcommand{\footrulewidth}{0.0pt} %untere Trennlinie unsichtbar
