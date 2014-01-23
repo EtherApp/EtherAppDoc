@@ -4,7 +4,7 @@
 \subsection{Etherpad Lite}
 \label{sub:system:etherpad}
 
-\textit{Etherpad Lite} ist ein kollaborativer Online-Editor.
+\textit{Etherpad Lite}\citeque{etherpad} ist ein kollaborativer Online-Editor.
 Anwender können Textdokumente, sogenannte Pads, gemeinschaftlich und in Echtzeit online bearbeiten.
 Die Oberfläche ist browserbasiert.
 Innerhalb der Pads ist durch farbliche Markierung gekennzeichnet, welche Bearbeitungen von welchem Nutzer vorgenommen wurden.
@@ -12,7 +12,7 @@ Eine Instanz des Etherpad Lite ist standardmäßig offen.
 Damit kann jeder Anwender Pads anlegen und bearbeiten.
 Das System speichert Revisionen des Pad-Inhalts, die später abgerufen werden können.
 Die Oberfläche bietet außerdem die Möglichkeit zum Export des Inhalts in verschiedene Dokumentformate sowie einen Onlinechat zur Verständigung unter den Autoren.\\
-Das Projekt ist Open-Source und damit quelloffen und frei für jeden.\citeque{IEEE802-11}
+Das Projekt ist Open-Source und damit quelloffen und frei für jeden.
 
 \subsection{Abgrenzung und Zielstellung}
 Die Oberfläche des Etherpad Lite ist schlicht und übersichtlich gehalten.
@@ -38,4 +38,13 @@ Das beinhaltet insbesondere folgende Funktionen:
 
 % section system (end)
 
+\section{Vorgehen} % (fold)
 
+\subsection{Zugriff auf die HTTP-API}
+Das EPL bietet von Haus aus eine umfangreiche HTTP-API\citeque{epl-httpapi}.
+Sie stellt eine Reihe von Funktionen für administrative Aufgaben bereit, die über die offene Weboberfläche nicht zur Verfügung stehen.
+Der Zugriff auf die API ist nur mit einem Shared Secret (API Key) möglich, der vom Administrator festgelegt werden muss.\\
+Für den Zugriff auf die API existieren bereits Java-Bibliotheken, die alle API-Funktionen auf Methoden einer Java-Klasse abbilden.
+Für das Projekt EtherApp kam dabei die Implementation\citeque{hollinger} des US-amerikanischen Entwicklers Jordan Hollinger zum Einsatz.\\
+Die Bibliothek beinhaltet eine Klasse \texttt{EPLiteClient}, die mit den Zugangsdaten für die EPL-API initialisiert wird.
+Mit einem Objekt dieser Client-Klasse können Anfragen auf die jeweilige API durchgeführt werden, die als Java-Datenstruktur (\texttt{String} oder \texttt{HashMap}) zurückgegeben werden.
