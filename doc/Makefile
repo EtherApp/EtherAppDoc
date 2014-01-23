@@ -5,7 +5,7 @@ all: EtherAppDokumentation.tex inhalt.tex abk.tex quellen.bib literatur.bib deck
 	bibtex lit.aux
 	pdflatex EtherAppDokumentation.tex 
 	pdflatex EtherAppDokumentation.tex 
-	pdflatex EtherAppDokumentation.pdf 
+	pdflatex EtherAppDokumentation.tex 
 
 show: EtherAppDokumentation.tex inhalt.tex abk.tex quellen.bib literatur.bib deckblatt.tex
 	@echo "Creating the pdf file."
