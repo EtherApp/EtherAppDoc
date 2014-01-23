@@ -1,21 +1,21 @@
-all: EtherApp_Dokumentation.tex systembeschreibung.tex abk.tex quellen.bib literatur.bib deckblatt.tex
+all: EtherAppDokumentation.tex systembeschreibung.tex abk.tex quellen.bib literatur.bib deckblatt.tex
 	@echo "Creating the pdf file."
-	pdflatex EtherApp_Dokumentation.tex 
+	pdflatex EtherAppDokumentation.tex 
 	bibtex que.aux
 	bibtex lit.aux
-	pdflatex EtherApp_Dokumentation.tex 
-	pdflatex EtherApp_Dokumentation.tex 
-	pdflatex EtherApp_Dokumentation.pdf 
+	pdflatex EtherAppDokumentation.tex 
+	pdflatex EtherAppDokumentation.tex 
+	pdflatex EtherAppDokumentation.pdf 
 
-show: EtherApp_Dokumentation.tex systembeschreibung.tex abk.tex quellen.bib literatur.bib deckblatt.tex
+show: EtherAppDokumentation.tex systembeschreibung.tex abk.tex quellen.bib literatur.bib deckblatt.tex
 	@echo "Creating the pdf file."
-	pdflatex EtherApp_Dokumentation.tex 
+	pdflatex EtherAppDokumentation.tex 
 	bibtex que.aux
 	bibtex lit.aux
-	pdflatex EtherApp_Dokumentation.tex 
-	pdflatex EtherApp_Dokumentation.tex 
-	pdflatex EtherApp_Dokumentation.tex 
-	evince EtherApp_Dokumentation.pdf
+	pdflatex EtherAppDokumentation.tex 
+	pdflatex EtherAppDokumentation.tex 
+	pdflatex EtherAppDokumentation.tex 
+	evince EtherAppDokumentation.pdf
 
 clean:
 	@echo "Cleaning the directory"
