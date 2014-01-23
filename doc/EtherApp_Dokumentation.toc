@@ -1,5 +1,0 @@
-\select@language {ngerman}
-\select@language {ngerman}
-\contentsline {section}{\numberline {1}Systembeschreibung}{4}{section.1}
-\contentsline {subsection}{\numberline {1.1}Etherpad Lite}{4}{subsection.1.1}
-\contentsline {subsection}{\numberline {1.2}Abgrenzung und Zielstellung}{4}{subsection.1.2}
