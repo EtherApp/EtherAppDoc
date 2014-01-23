@@ -15,7 +15,9 @@ show: EtherAppDokumentation.tex inhalt.tex abk.tex quellen.bib literatur.bib dec
 	pdflatex EtherAppDokumentation.tex 
 	pdflatex EtherAppDokumentation.tex 
 	pdflatex EtherAppDokumentation.tex 
-	evince EtherAppDokumentation.pdf
+	# Very crude fix for different PDF viewers on Linux and Mac OSX
+	evince EtherAppDokumentation.pdf || TRUE
+	open EtherAppDokumentation.pdf || TRUE
 
 clean:
 	@echo "Cleaning the directory"
