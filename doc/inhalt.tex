@@ -104,7 +104,21 @@ Sie stellt die Datenbank für den Schreib- oder Lesezugriff zur Verfügung und r
 
 
 
+\subsection{Datenstruktur}
+Alle Daten (APIs, Pads, Gruppen) der EtherApp werden in einer Klassenstruktur gespeichert. Die gesamte Struktur ist in \autoref{fig:klassendiagramm} dargestellt.\\
+Die Wurzel der Struktur ist die statische Klasse \texttt{GlobalConfig}.
+Sie enthält eine \texttt{HashMap} mit allen angelegten APIs, jeweils Objekte der Klasse \texttt{PadAPI}.
+Innerhalb der API beinhaltet eine \texttt{HashMap} alle Pads inklusive ihrer Parameter (sofern schon abgerufen).
+Ein Pad ist in einem Objekt der Klasse \texttt{Pad} repräsentiert.\\
+In der \texttt{GlobalConfig} sind außerdem der \texttt{DBHandler}, die \texttt{MainActivity} (Host für die Tab-Ansicht) und die aktuell ausgewählte API als Objekte hinterlegt.\\
+Die Klasse \texttt{PadThread} ruft beim Start die komplette Liste aller Pads asynchron aus der API ab.
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{./inc/etherapp_classes.png}
+	\caption{Klassendiagramm der EtherApp}
+	\label{fig:klassendiagramm}
+\end{figure}
 
 
 
