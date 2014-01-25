@@ -55,7 +55,7 @@ Zur Anpassung von Daten und das tatsächliche Darstellen in der Liste wird ein A
 Android stellt bereits eine Reihe von Adaptern zur Verfügung (\texttt{BaseAdapter}, \texttt{ArrayAdapter}, ...).
 Deren Nachteil ist jedoch eine festgelegte Darstellungsweise; es ist auf einem Listenelement lediglich ein \texttt{TextView} dargestellt.\\
 In unserem Anwendungsfall sollten in den Listenelementen der Padliste neben dem eigentlichen Pad-Namen zusätzliche Statusinformationen zum Pad sowie ein Löschen-Button angezeigt werden.
-Dieses Ziel konnte nur mit einem eigenen Adapter\footnote{\texttt{de.etherapp.adapters.PadlistBaseAdapter.java}} und einem selbst gestalteten Listenelement\footnote{\texttt{de.etherapp.beans.PadlistItem.java}} erreicht werden.\\
+Dieses Ziel konnte nur mit einem eigenen Adapter\footnote{\texttt{de.etherapp.adapters.PadlistBaseAdapter}} und einem selbst gestalteten Listenelement\footnote{\texttt{de.etherapp.beans.PadlistItem}} erreicht werden.\\
 
 
 \subsection{Asynchrones Laden der Listenelemente}
@@ -98,7 +98,12 @@ Diese Variante funktionierte, hatte aber ihre Grenzen: Da es keine Funktion gibt
 Sobald ein Eintrag gelöscht wurde, traten Konsistenzprobleme auf, die nur mit viel Aufwand wieder zu beheben gewesen wären.
 Wir entschieden uns daher für eine Migration auf \textbf{SQLite}, ein leichtgewichtiges relationales Datenbanksystem auf Dateibasis.\\
 Android stellt bereits von Haus aus die nötigen Schnittstellen für SQLite-Datenbanken zur Verfügung.
-Die Daten lassen sich mit einer relationalen Datenbank wesentlich leichter auslesen und verändern, obgleich die Implementation und Einrichtung etwas aufwendiger ist, als für die Shared Preferences.
+Die Daten lassen sich mit einer relationalen Datenbank wesentlich leichter auslesen und verändern, obgleich die Implementation und Einrichtung etwas aufwendiger ist, als für die Shared Preferences.\\
+Zum Zugriff auf die Datenbank wurde die Klasse \texttt{de.etherapp.sql.DBHandler} als Extension der Elternklasse \texttt{SQLiteOpenHelper} angelegt.
+Sie stellt die Datenbank für den Schreib- oder Lesezugriff zur Verfügung und regelt die Initialisierung der Datenbank beim ersten Start der App oder beim Upgrade.
+
+
+
 
 
 
