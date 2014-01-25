@@ -48,3 +48,29 @@ Für den Zugriff auf die API existieren bereits Java-Bibliotheken, die alle API-
 Für das Projekt EtherApp kam dabei die Implementation\citeque{hollinger} des US-amerikanischen Entwicklers Jordan Hollinger zum Einsatz.\\
 Die Bibliothek beinhaltet eine Klasse \texttt{EPLiteClient}, die mit den Zugangsdaten für die EPL-API initialisiert wird.
 Mit einem Objekt dieser Client-Klasse können Anfragen auf die jeweilige API durchgeführt werden, die als Java-Datenstruktur (\texttt{String} oder \texttt{HashMap}) zurückgegeben werden.
+
+\subsection{Selbst definierte Listen}
+Das Android-SDK stellt mit dem \texttt{ListView} ein View-Element zur Verfügung, mit dem Elemente in einer scrollbaren Liste angezeigt werden können.\\
+Zur Anpassung von Daten und das tatsächliche Darstellen in der Liste wird ein Adapter benötigt.
+Android stellt bereits eine Reihe von Adaptern zur Verfügung (\texttt{BaseAdapter}, \texttt{ArrayAdapter}, ...).
+Deren Nachteil ist jedoch eine festgelegte Darstellungsweise; es ist auf einem Listenelement lediglich ein \texttt{TextView} dargestellt.\\
+In unserem Anwendungsfall sollten in den Listenelementen der Padliste neben dem eigentlichen Pad-Namen zusätzliche Statusinformationen zum Pad sowie ein Löschen-Button angezeigt werden.
+Dieses Ziel konnte nur mit einem eigenen Adapter\footnote{\texttt{de.etherapp.adapters.PadlistBaseAdapter.java}} und einem selbst gestalteten Listenelement\footnote{\texttt{de.etherapp.beans.PadlistItem.java}} erreicht werden.\\
+
+
+\subsection{Asynchrones Laden der Padliste}
+Um eine komplette Padliste inklusive der Metadaten zu jedem Pad abzurufen, sind folgende Anfragen an die HTTP-API nötig:
+\begin{itemize}
+	\item Abrufen der Padliste (nur IDs)
+	\item Abrufen der Metadaten zu jedem einzelnen Pad
+		\begin{itemize}
+			\item Anzahl der User online
+			\item Anzahl der Revisionen
+			\item Datum der letzten Bearbeitung
+		\end{itemize}
+\end{itemize}
+
+Für jedes Pad sind also drei HTTP-Anfragen abzusetzen.
+Bei einem Volumen von 300 Pads sind damit 901 HTTP-Anfragen nötig, um alle Daten der Padliste abzurufen, auch wenn der Benutzer diese zunächst gar nicht benötigt!
+Dieser Umstand erfordert eine Lösung, mit der die Inhalte eines Listenelements erst dann geladen werden, wenn das Element auch angezeigt wird.
+Das Nachladen sollte ansynchron erfolgen.\\
