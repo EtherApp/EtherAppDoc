@@ -58,7 +58,7 @@ In unserem Anwendungsfall sollten in den Listenelementen der Padliste neben dem 
 Dieses Ziel konnte nur mit einem eigenen Adapter\footnote{\texttt{de.etherapp.adapters.PadlistBaseAdapter.java}} und einem selbst gestalteten Listenelement\footnote{\texttt{de.etherapp.beans.PadlistItem.java}} erreicht werden.\\
 
 
-\subsection{Asynchrones Laden der Padliste}
+\subsection{Asynchrones Laden der Listenelemente}
 Um eine komplette Padliste inklusive der Metadaten zu jedem Pad abzurufen, sind folgende Anfragen an die HTTP-API nötig:
 \begin{itemize}
 	\item Abrufen der Padliste (nur IDs)
@@ -71,6 +71,10 @@ Um eine komplette Padliste inklusive der Metadaten zu jedem Pad abzurufen, sind 
 \end{itemize}
 
 Für jedes Pad sind also drei HTTP-Anfragen abzusetzen.
-Bei einem Volumen von 300 Pads sind damit 901 HTTP-Anfragen nötig, um alle Daten der Padliste abzurufen, auch wenn der Benutzer diese zunächst gar nicht benötigt!
+Bei einem Volumen von 300 Pads sind damit 901 HTTP-Anfragen nötig, um alle Daten der Padliste abzurufen, auch wenn der Benutzer diese zunächst gar nicht benötigt! Neben der dadurch ausgelösten Serverlast ist auch die resultierende Wartezeit für den Benutzer nicht akzeptabel.
 Dieser Umstand erfordert eine Lösung, mit der die Inhalte eines Listenelements erst dann geladen werden, wenn das Element auch angezeigt wird.
-Das Nachladen sollte ansynchron erfolgen.\\
+Dieses Ziel kann mit einem \texttt{AsyncTask} erreicht werden.
+Zunächst wird synchron die Liste aller Pads abgerufen und das \texttt{ListView} mit Elementen gefüllt. Jedes angezeigte Listenelement startet einen neuen Thread für jeden zu ladenden Wert.
+Der Thread stellt asynchron die Anfragen an die API und schreibt die Ergebnisse direkt in die Views des Listenelements..
+Das asynchrone Laden ist beim Scrollen der Liste an der Zeitverzögerung zu erkennen.
+
