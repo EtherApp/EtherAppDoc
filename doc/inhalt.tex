@@ -36,9 +36,9 @@ Das beinhaltet insbesondere folgende Funktionen:
 	\item Verwaltung mehrerer EPL-Instanzen und Profilverwaltung
 \end{itemize}
 
-% section system (end)
 
-\section{Vorgehen} % (fold)
+
+\section{Vorgehen}
 
 \subsection{Zugriff auf die HTTP-API}
 Das EPL bietet von Haus aus eine umfangreiche HTTP-API\citeque{epl-httpapi}.
@@ -86,6 +86,19 @@ Jeweils eine API kann zur Verwendung ausgewählt werden.
 Beim Start der App wird die zuletzt ausgewählte API verwendet.
 Startet die App zum ersten Mal, wird der Benutzer direkt zum Anlegen einer neuen API aufgefordert.
 
+
+\subsection{Persistenter Datenspeicher}
+Einige Parameter der EtherApp müssen persistent gespeichert werden, z.B. die vom Benutzer definierten APIs und Grundeinstellungen.
+Für diese Aufgabe gibt es zwei Lösungsansätze: Shared Preferences und eine SQLite-Datenbank.\\
+\\
+Die \textbf{Shared Preferences} sind Schlüssel-Wert-Paare, auf die systemglobal von Applikationen zugegriffen werden kann.
+Da uns die Implementation einfacher erschien, sollte diese Methode zum Speichern der API-Informationen verwendet werden.
+Dazu wurde dem Schlüssel (z.B. \texttt{apikey}) ein Index angefügt (z.B. \texttt{apikey2}) um die Zugehörigkeit zu einer API-Einstellung, die aus mehreren Schlüsseln besteht, erkennbar zu machen.
+Diese Variante funktionierte, hatte aber ihre Grenzen: Da es keine Funktion gibt, alle existierenden Schlüssel abzurufen, musste immer die Anzahl der existierenden APIs mitgespeichert werden, um durch die Liste iterieren zu können.
+Sobald ein Eintrag gelöscht wurde, traten Konsistenzprobleme auf, die nur mit viel Aufwand wieder zu beheben gewesen wären.
+Wir entschieden uns daher für eine Migration auf \textbf{SQLite}, ein leichtgewichtiges relationales Datenbanksystem auf Dateibasis.\\
+Android stellt bereits von Haus aus die nötigen Schnittstellen für SQLite-Datenbanken zur Verfügung.
+Die Daten lassen sich mit einer relationalen Datenbank wesentlich leichter auslesen und verändern, obgleich die Implementation und Einrichtung etwas aufwendiger ist, als für die Shared Preferences.
 
 
 
