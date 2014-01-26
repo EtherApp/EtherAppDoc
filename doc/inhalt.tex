@@ -102,6 +102,15 @@ Die Daten lassen sich mit einer relationalen Datenbank wesentlich leichter ausle
 Zum Zugriff auf die Datenbank wurde die Klasse \texttt{de.etherapp.sql.DBHandler} als Extension der Elternklasse \texttt{SQLiteOpenHelper} angelegt.
 Sie stellt die Datenbank für den Schreib- oder Lesezugriff zur Verfügung und regelt die Initialisierung der Datenbank beim ersten Start der App oder beim Upgrade.
 
+\subsection{Tab-Ansicht}
+Zur Navigation zwischen den Haupt-Activities (Padliste, Gruppenliste, ...) entschieden wir uns für eine Tab-Ansicht.
+Am oberen Rand des Bildschirms sollte eine Tab-Leiste zu sehen sein, beim Anklicken sollte der Inhaltsbereich unten aktualisiert werden.\\
+Für diesen Zweck ist das View-Element \texttt{TabHost} entwickelt worden.
+Innerhalb einer \texttt{TabActivity} sorgt es für die Auslieferung von Tabs.
+Es stellt einen Rahmen zur Verfügung, in den je nach aktivem Tab eine Activity geladen wird.\\
+Später fiel uns auf, dass dieses Feature als \textit{deprecated} eingestuft ist und nicht mehr verwendet werden soll.
+Stattdessen sollen Tab-Ansichten mit sogen. Fragments implementiert werden.
+Die Migration auf eine Fragment-Umgebung hätte jedoch eine vollkommene Umstrukturierung der Software mit sich gebracht und wurde aus Zeitgründen nicht durchgeführt.
 
 
 \subsection{Datenstruktur}
@@ -120,6 +129,4 @@ Die Klasse \texttt{PadThread} ruft beim Start die komplette Liste aller Pads asy
 	\label{fig:klassendiagramm}
 \end{figure}
 
-
-\subsection{Tab-Ansicht}
 
