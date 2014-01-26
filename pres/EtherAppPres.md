@@ -22,14 +22,20 @@
 
 ## Motivation
 
-* Keine Oberfläche zur Administration eine EPL
+* Keine Oberfläche zur Administration eines EPL
 * Zugriff nur über die HTTP API
+
+\begin{center}
+\includegraphics[scale=0.14]{inc/etherpad.png}
+\end{center}
 
 # Zielstellung
 
 ## Überblick
+\begin{center}
+\huge{\textbf{Komfortabler Zugriff auf administrative Bestandteile des EPL via App}}
+\end{center}
 
-* Erstellung einer App die den administrativen Zugang ermöglicht
 
 ## Features der API
 
@@ -51,9 +57,69 @@
 * Löschen von Pads
 * Anzeige des Pad-Inhalts
 * Anzeige und Verwaltung von Gruppen
-* Verwaltung mehrerer EPL-Instanzen und Profilverwaltung
 * Rücksetzen des Inhalts auf ältere Revision
+
+### Ergänzend
+* Verwaltung mehrerer EPL-Instanzen und Profilverwaltung
 * Teilen der Pad-URL über soziale Dienste und E-Mail
+
+
+# Probleme
+
+## Listen
+
+### Problem
+1) Vordefinierte Adapter für Listen nicht ausreichend
+
+### Lösung
+* Von BaseAdapter abgeleitet
+    * PadlistAdapter
+    * GrouplistAdapter
+    * APIlistAdapter
+* Eigene Item-Klassen erstellt
+    * APIlistItem
+    * GrouplistItem
+    * PadlistItem
+
+## Asynchrones Laden der API
+
+### Probleme
+1) Abrufen aller Informationen für alle Pads dauert zu lange
+2) Aktualisierung immer, wenn Item in Liste sichtbar wird
+
+### Lösung
+1) Implementierung eines Loaders mit AsyncTask
+    * Abruf erst beim Anlegen eines Items
+    * Item wird schon Angezeigt
+
+### Bestehend
+2) Wie stoppt man die Aktualisierung?
+
+## Datenspeicherung
+
+### Problem
+1) Persistente Speicherung zur Verwaltung der Daten
+
+### Lösungsmöglichkeiten
+* SharedPreferences
+* Sqlite Datenbank
+
+### Lösung
+* Sqlite Datenbank mit zwei Tabellen
+    * Globale Einstellungen
+    * API Liste
+
+## Threads
+
+### Problem
+* Blockieren der Activity
+    * Pad erstellen/löschen
+    * Gruppe erstellen/löschen
+    * Inhalt eines Pads abrufen
+
+### Lösung
+* Auslagern in eigene AsyncTasks
+    * Noch nicht implementiert
 
 # Demo
 
@@ -63,31 +129,18 @@
 \includegraphics[scale=0.15]{inc/IMG_4425.jpg}
 \end{center}
 
-# Probleme
-
-## Listen
-
-    %s/^#[^#] \?\(.\+\)/\\section{\1}/g
-
-\begin{center}
-\includegraphics[scale=0.3]{inc/etherapp.png}
-\end{center}
-
-## Asynchrones Laden der API
-
-* AsyncLoader
-* \texttt{Text in spezieller Schrift}
-
-## Datenspeicherung
-
-* sql
-* sharedpreferences
-
 # Ausblick
 
 ## Wie kann es weiter gehen
 
-* neue Ideen
+* Datenbank der App zurücksetzten
+* Tabs durch modernere Fragmente ersetzten
+* Zeitgesteuertes Update der Padliste
+* Festlegen des Textes in einem neuen Pad durch den Benutzer
+
+\begin{center}
+\includegraphics[scale=0.15]{inc/etherapp.png}
+\end{center}
 
 ## Fragen
 
