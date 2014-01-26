@@ -5,53 +5,78 @@
 
 # Einführung
 
-## Etherpad Lite 
+## Etherpad Lite  (EPL)
 
-\begin{center}
-\includegraphics[scale=0.3]{inc/etherapp.png}
-\end{center}
+* Kollaborativer Onlineeditor
+* Javascript/Node.js
 
-###  Not enough?
+### Ermöglicht
+* Gemeinsames schreiben von Text 
+* Export in andere Formate
+* Zugriff via HTTP API
+
+### Links 
 [http://etherpad.org/](http://etherpad.org/)
+[https://github.com/ether/etherpad-lite/](https://github.com/ether/etherpad-lite/)
+[http://etherpad.org/doc/v1.3.0/](http://etherpad.org/doc/v1.3.0/)
 
 ## Motivation
 
-* ?
+* Keine Oberfläche zur Administration eine EPL
+* Zugriff nur über die HTTP API
 
 # Zielstellung
 
-## Überblick 
+## Überblick
 
-* allgemeine Ziele
+* Erstellung einer App die den administrativen Zugang ermöglicht
 
 ## Features der API
 
-\begin{center}
-\LARGE{\textbf{Wichtige Message}}
-\\[3em]
-\LARGE{\textbf{Auch wichtig!}}
-\end{center}
+* Abruf aller Pads
+* Abruf von Meta-Informationen für einzelne Pads
+    * (Benutzer online, Revisionen, Datum , …)
+* Anlegen neuer Pads
+* Löschen von Pads
+* Abruf des Pad-Inhalts
+* Rücksetzen des Inhalts auf ältere Revision
+* Abrufen und Anlegen von Gruppen
 
 ## Ausgewählte Features
 
-* Was haben wir umgesetzt
+* Anzeige aller Pads
+* Anzeige von Meta-Informationen für einzelne Pads
+    * (Benutzer online, Revisionen, Datum , …)
+* Anlegen neuer Pads
+* Löschen von Pads
+* Anzeige des Pad-Inhalts
+* Anzeige und Verwaltung von Gruppen
+* Verwaltung mehrerer EPL-Instanzen und Profilverwaltung
+* Rücksetzen des Inhalts auf ältere Revision
+* Teilen der Pad-URL über soziale Dienste und E-Mail
 
 # Demo
 
 ## 
 
-* Bild Mobile!
+\begin{center}
+\includegraphics[scale=0.15]{inc/IMG_4425.jpg}
+\end{center}
 
 # Probleme
-* \texttt{Text in spezieller Schrift}
 
 ## Listen
 
     %s/^#[^#] \?\(.\+\)/\\section{\1}/g
 
+\begin{center}
+\includegraphics[scale=0.3]{inc/etherapp.png}
+\end{center}
+
 ## Asynchrones Laden der API
 
 * AsyncLoader
+* \texttt{Text in spezieller Schrift}
 
 ## Datenspeicherung
 
