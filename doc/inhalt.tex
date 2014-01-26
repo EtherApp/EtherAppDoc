@@ -12,7 +12,7 @@ Eine Instanz des Etherpad Lite ist standardmäßig offen.
 Damit kann jeder Anwender Pads anlegen und bearbeiten.
 Das System speichert Revisionen des Pad-Inhalts, die später abgerufen werden können.
 Die Oberfläche bietet außerdem die Möglichkeit zum Export des Inhalts in verschiedene Dokumentformate sowie einen Onlinechat zur Verständigung unter den Autoren.\\
-Das Projekt ist Open-Source und damit quelloffen und frei für jeden.
+Etherpad Lite ist Open-Source und damit quelloffen und frei.
 
 \subsection{Abgrenzung und Zielstellung}
 Die Oberfläche des Etherpad Lite ist schlicht und übersichtlich gehalten.
@@ -41,22 +41,21 @@ Das beinhaltet insbesondere folgende Funktionen:
 \section{Vorgehen}
 
 \subsection{Zugriff auf die HTTP-API}
-Das EPL bietet von Haus aus eine umfangreiche HTTP-API\citeque{epl-httpapi}.
+Das EPL bietet eine umfangreiche HTTP-API\citeque{epl-httpapi} an.
 Sie stellt eine Reihe von Funktionen für administrative Aufgaben bereit, die über die offene Weboberfläche nicht zur Verfügung stehen.
 Der Zugriff auf die API ist nur mit einem Shared Secret (API Key) möglich, der vom Administrator festgelegt werden muss.\\
 Für den Zugriff auf die API existieren bereits Java-Bibliotheken, die alle API-Funktionen auf Methoden einer Java-Klasse abbilden.
-Für das Projekt EtherApp kam dabei die Implementation\citeque{hollinger} des US-amerikanischen Entwicklers Jordan Hollinger zum Einsatz.\\
-Die Bibliothek beinhaltet eine Klasse \texttt{EPLiteClient}, die mit den Zugangsdaten für die EPL-API initialisiert wird.
+Für das Projekt EtherApp kam dabei die Implementation\citeque{hollinger} von Jordan Hollinger zum Einsatz.\\
+Diese Bibliothek beinhaltet eine Klasse \texttt{EPLiteClient}, welche mit den Zugangsdaten für die EPL-API initialisiert wird.
 Mit einem Objekt dieser Client-Klasse können Anfragen auf die jeweilige API durchgeführt werden, die als Java-Datenstruktur (\texttt{String} oder \texttt{HashMap}) zurückgegeben werden.
 
 \subsection{Selbst definierte Listen}
 Das Android-SDK stellt mit dem \texttt{ListView} ein View-Element zur Verfügung, mit dem Elemente in einer scrollbaren Liste angezeigt werden können.\\
 Zur Anpassung von Daten und das tatsächliche Darstellen in der Liste wird ein Adapter benötigt.
-Android stellt bereits eine Reihe von Adaptern zur Verfügung (\texttt{BaseAdapter}, \texttt{ArrayAdapter}, ...).
-Deren Nachteil ist jedoch eine festgelegte Darstellungsweise; es ist auf einem Listenelement lediglich ein \texttt{TextView} dargestellt.\\
+Android stellt bereits eine Reihe von Adaptern zur Verfügung (\texttt{BaseAdapter}, \texttt{ArrayAdapter}, …).
+Deren Nachteil ist jedoch eine festgelegte Darstellungsweise, denn auf einem Listenelement ist lediglich ein \texttt{TextView} dargestellt.\\
 In unserem Anwendungsfall sollten in den Listenelementen der Padliste neben dem eigentlichen Pad-Namen zusätzliche Statusinformationen zum Pad sowie ein Löschen-Button angezeigt werden.
-Dieses Ziel konnte nur mit einem eigenen Adapter\footnote{\texttt{de.etherapp.adapters.PadlistBaseAdapter}} und einem selbst gestalteten Listenelement\footnote{\texttt{de.etherapp.beans.PadlistItem}} erreicht werden.\\
-
+Dieses Ziel konnte nur mit einem eigenen Adapter\footnote{\texttt{de.etherapp.adapters.PadlistBaseAdapter}} und einem selbst gestalteten Listenelement\footnote{\texttt{de.etherapp.beans.PadlistItem}} erreicht werden.
 
 \subsection{Asynchrones Laden der Listenelemente}
 Um eine komplette Padliste inklusive der Metadaten zu jedem Pad abzurufen, sind folgende Anfragen an die HTTP-API nötig:
@@ -70,14 +69,15 @@ Um eine komplette Padliste inklusive der Metadaten zu jedem Pad abzurufen, sind 
 		\end{itemize}
 \end{itemize}
 
+\newpage
 Für jedes Pad sind also drei HTTP-Anfragen abzusetzen.
-Bei einem Volumen von 300 Pads sind damit 901 HTTP-Anfragen nötig, um alle Daten der Padliste abzurufen, auch wenn der Benutzer diese zunächst gar nicht benötigt! Neben der dadurch ausgelösten Serverlast ist auch die resultierende Wartezeit für den Benutzer nicht akzeptabel.
+Bei einem Volumen von 300 Pads sind damit 901 HTTP-Anfragen nötig, um alle Daten der Padliste abzurufen, auch wenn der Benutzer diese zunächst gar nicht benötigt!
+Neben der dadurch ausgelösten Serverlast ist auch die resultierende Wartezeit für den Benutzer nicht akzeptabel.
 Dieser Umstand erfordert eine Lösung, mit der die Inhalte eines Listenelements erst dann geladen werden, wenn das Element auch angezeigt wird.\\
 Dieses Ziel kann mit einem \texttt{AsyncTask} erreicht werden.
 Zunächst wird synchron die Liste aller Pads abgerufen und das \texttt{ListView} mit Elementen gefüllt. Jedes angezeigte Listenelement startet einen neuen Thread für jeden zu ladenden Wert.
 Der Thread stellt asynchron eine Anfrage an die API und schreibt die Ergebnisse direkt in die Views des Listenelements.
 Das asynchrone Laden ist beim Scrollen der Liste an der Zeitverzögerung zu erkennen.
-
 
 \subsection{Verwaltung mehrerer EPL-Instanzen}
 Zur Verwaltung mehrerer Instanzen des EPL auf verschiedenen Servern wurde eine Profilverwaltung implementiert.
@@ -86,23 +86,22 @@ Jeweils eine API kann zur Verwendung ausgewählt werden.
 Beim Start der App wird die zuletzt ausgewählte API verwendet.
 Startet die App zum ersten Mal, wird der Benutzer direkt zum Anlegen einer neuen API aufgefordert.
 
-
 \subsection{Persistenter Datenspeicher}
 Einige Parameter der EtherApp müssen persistent gespeichert werden, z.B. die vom Benutzer definierten APIs und Grundeinstellungen.
-Für diese Aufgabe gibt es zwei Lösungsansätze: Shared Preferences und eine SQLite-Datenbank.\\
-\\
+Für diese Aufgabe gibt es zwei\\
+Lösungsansätze: Shared Preferences und eine SQLite-Datenbank.
+
 Die \textbf{Shared Preferences} sind Schlüssel-Wert-Paare, auf die systemglobal von Applikationen zugegriffen werden kann.
 Da uns die Implementation einfacher erschien, sollte diese Methode zum Speichern der API-Informationen verwendet werden.
 Dazu wurde dem Schlüssel (z.B. \texttt{apikey}) ein Index angefügt (z.B. \texttt{apikey2}) um die Zugehörigkeit zu einer API-Einstellung, die aus mehreren Schlüsseln besteht, erkennbar zu machen.
-Diese Variante funktionierte, hatte aber ihre Grenzen: Da es keine Funktion gibt, alle existierenden Schlüssel abzurufen, musste immer die Anzahl der existierenden APIs mitgespeichert werden, um durch die Liste iterieren zu können.
+Diese Variante funktionierte, hatte aber ihre Grenzen.
+Da es keine Funktion gibt, alle existierenden Schlüssel abzurufen, musste immer die Anzahl der existierenden APIs mitgespeichert werden, um durch die Liste iterieren zu können.
 Sobald ein Eintrag gelöscht wurde, traten Konsistenzprobleme auf, die nur mit viel Aufwand wieder zu beheben gewesen wären.
 Wir entschieden uns daher für eine Migration auf \textbf{SQLite}, ein leichtgewichtiges relationales Datenbanksystem auf Dateibasis.\\
-Android stellt bereits von Haus aus die nötigen Schnittstellen für SQLite-Datenbanken zur Verfügung.
+Android stellt bereits  die nötigen Schnittstellen für SQLite-Datenbanken zur Verfügung.
 Die Daten lassen sich mit einer relationalen Datenbank wesentlich leichter auslesen und verändern, obgleich die Implementation und Einrichtung etwas aufwendiger ist, als für die Shared Preferences.\\
 Zum Zugriff auf die Datenbank wurde die Klasse \texttt{de.etherapp.sql.DBHandler} als Extension der Elternklasse \texttt{SQLiteOpenHelper} angelegt.
 Sie stellt die Datenbank für den Schreib- oder Lesezugriff zur Verfügung und regelt die Initialisierung der Datenbank beim ersten Start der App oder beim Upgrade.
-
-
 
 \subsection{Datenstruktur}
 Alle Daten (APIs, Pads, Gruppen) der EtherApp werden in einer Klassenstruktur gespeichert. Die gesamte Struktur ist in \autoref{fig:klassendiagramm} dargestellt.\\
@@ -113,13 +112,14 @@ Ein Pad ist in einem Objekt der Klasse \texttt{Pad} repräsentiert.\\
 In der \texttt{GlobalConfig} sind außerdem der \texttt{DBHandler}, die \texttt{MainActivity} (Host für die Tab-Ansicht) und die aktuell ausgewählte API als Objekte hinterlegt.\\
 Die Klasse \texttt{PadThread} ruft beim Start die komplette Liste aller Pads asynchron aus der API ab.
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{./inc/etherapp_classes.png}
-	\caption{Klassendiagramm der EtherApp}
-	\label{fig:klassendiagramm}
+\begin{figure}[h!]
+    \centering
+    \setlength\fboxsep{0pt}
+    %\setlength\fboxrule{0.5pt}
+    \fbox{\includegraphics[width=\textwidth]{./inc/etherapp_classes.png}}
+	  \caption{Klassendiagramm der EtherApp}
+	  \label{fig:klassendiagramm}
 \end{figure}
-
 
 \subsection{Tab-Ansicht}
 
