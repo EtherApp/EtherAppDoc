@@ -56,6 +56,17 @@ Android stellt bereits eine Reihe von Adaptern zur Verfügung (\texttt{BaseAdapt
 Deren Nachteil ist jedoch eine festgelegte Darstellungsweise, denn auf einem Listenelement ist lediglich ein \texttt{TextView} dargestellt.\\
 In unserem Anwendungsfall sollten in den Listenelementen der Padliste neben dem eigentlichen Pad-Namen zusätzliche Statusinformationen zum Pad sowie ein Löschen-Button angezeigt werden.
 Dieses Ziel konnte nur mit einem eigenen Adapter\footnote{\texttt{de.etherapp.adapters.PadlistBaseAdapter}} und einem selbst gestalteten Listenelement\footnote{\texttt{de.etherapp.beans.PadlistItem}} erreicht werden.
+Der entgültige Entwurf der Padliste ist in \autoref{fig:Padliste} zu sehen.
+
+\begin{figure}[h!]
+    \centering
+    \setlength\fboxsep{0pt}
+    %\setlength\fboxrule{0.5pt}
+    \fbox{\includegraphics[scale=0.15]{./inc/padliste.png}}
+	  \caption{PadlistActivity mit mehreren PadItems}
+	  \label{fig:Padliste}
+\end{figure}
+
 
 \subsection{Asynchrones Laden der Listenelemente}
 Um eine komplette Padliste inklusive der Metadaten zu jedem Pad abzurufen, sind folgende Anfragen an die HTTP-API nötig:
@@ -69,7 +80,6 @@ Um eine komplette Padliste inklusive der Metadaten zu jedem Pad abzurufen, sind 
 		\end{itemize}
 \end{itemize}
 
-\newpage
 Für jedes Pad sind also drei HTTP-Anfragen abzusetzen.
 Bei einem Volumen von 300 Pads sind damit 901 HTTP-Anfragen nötig, um alle Daten der Padliste abzurufen, auch wenn der Benutzer diese zunächst gar nicht benötigt!
 Neben der dadurch ausgelösten Serverlast ist auch die resultierende Wartezeit für den Benutzer nicht akzeptabel.
@@ -79,12 +89,31 @@ Zunächst wird synchron die Liste aller Pads abgerufen und das \texttt{ListView}
 Der Thread stellt asynchron eine Anfrage an die API und schreibt die Ergebnisse direkt in die Views des Listenelements.
 Das asynchrone Laden ist beim Scrollen der Liste an der Zeitverzögerung zu erkennen.
 
+\newpage
 \subsection{Verwaltung mehrerer EPL-Instanzen}
 Zur Verwaltung mehrerer Instanzen des EPL auf verschiedenen Servern wurde eine Profilverwaltung implementiert.
+Die benötigten Informationen für den Zugriff auf eine EPL-Instanz sind in \autoref{tbl:EPLi} zu sehen.
 In den Einstellungen können Daten für verschiedene APIs eingetragen werden.
 Jeweils eine API kann zur Verwendung ausgewählt werden.
 Beim Start der App wird die zuletzt ausgewählte API verwendet.
 Startet die App zum ersten Mal, wird der Benutzer direkt zum Anlegen einer neuen API aufgefordert.
+
+\begin{table}[h!]
+    \begin{center}
+      \footnotesize
+      \begin{tabular}{|l|l|}
+          \hline \textbf{Information} & \textbf{Beschreibung}\\
+          \hline
+          \hline API Name & Eindeutiger Name einer EPL-Instanz\\
+          \hline URL & Adresse der API\\
+          \hline Port & Verwendeter Port\\
+          \hline API Key & Eindeutiger Schlüssel für den Zugriff\\
+          \hline
+      \end{tabular}
+    \label{tbl:EPLi}
+    \caption{Benötigte Informationen für eine EPL-Instanz}
+    \end{center}
+\end{table}
 
 \subsection{Persistenter Datenspeicher}
 Einige Parameter der EtherApp müssen persistent gespeichert werden, z.B. die vom Benutzer definierten APIs und Grundeinstellungen.
@@ -103,6 +132,7 @@ Die Daten lassen sich mit einer relationalen Datenbank wesentlich leichter ausle
 Zum Zugriff auf die Datenbank wurde die Klasse \texttt{de.etherapp.sql.DBHandler} als Extension der Elternklasse \texttt{SQLiteOpenHelper} angelegt.
 Sie stellt die Datenbank für den Schreib- oder Lesezugriff zur Verfügung und regelt die Initialisierung der Datenbank beim ersten Start der App oder beim Upgrade.
 
+\newpage
 \subsection{Datenstruktur}
 Alle Daten (APIs, Pads, Gruppen) der EtherApp werden in einer Klassenstruktur gespeichert. Die gesamte Struktur ist in \autoref{fig:klassendiagramm} dargestellt.\\
 Die Wurzel der Struktur ist die statische Klasse \texttt{GlobalConfig}.
