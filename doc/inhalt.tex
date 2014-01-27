@@ -100,7 +100,39 @@ Wir entschieden uns daher für eine Migration auf \textbf{SQLite}, ein leichtgew
 Android stellt bereits von Haus aus die nötigen Schnittstellen für SQLite-Datenbanken zur Verfügung.
 Die Daten lassen sich mit einer relationalen Datenbank wesentlich leichter auslesen und verändern, obgleich die Implementation und Einrichtung etwas aufwendiger ist, als für die Shared Preferences.\\
 Zum Zugriff auf die Datenbank wurde die Klasse \texttt{de.etherapp.sql.DBHandler} als Extension der Elternklasse \texttt{SQLiteOpenHelper} angelegt.
-Sie stellt die Datenbank für den Schreib- oder Lesezugriff zur Verfügung und regelt die Initialisierung der Datenbank beim ersten Start der App oder beim Upgrade.
+Sie stellt die Datenbank für den Schreib- oder Lesezugriff zur Verfügung und regelt die Initialisierung der Datenbank beim ersten Start der App oder beim Upgrade.\\
+\\
+Für die EtherApp wurden zwei Tabellen angelegt.
+\texttt{ea\_padapi} beinhaltet alle Parameter für die API-Definition.
+Zur Identifizierung eines Datensatzes wird eine interne UUID verwendet.
+Die Tabelle \texttt{ea\_pref} nimmt Schlüssel-Wert-Paare für verschiedene Einstellungen auf, z.B. die UUID der zuletzt ausgewählten API.\\
+Die Struktur der Datenbanktabellen ist nachfolgend dargestellt.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{2cm}|p{4cm}|p{4cm}|}
+\hline
+\multicolumn{3}{|c|}{\textbf{ea\_padapi}} \\ \hline
+apiid 	& VARCHAR(64) 	& PRIMARY KEY \\ \hline
+apiname	& VARCHAR(255) 	& NOT NULL \\ \hline
+apiurl 	& VARCHAR(255) 	& NOT NULL \\ \hline
+port	& INT 			& NOT NULL \\ \hline
+apikey	& VARCHAR(255)	& NOT NULL \\ \hline
+timestamp & UNIX\_TIMESTAMP	&  \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{2cm}|p{4cm}|p{4cm}|}
+\hline
+\multicolumn{3}{|c|}{\textbf{ea\_pref}} \\ \hline
+name 	& VARCHAR(255) 	& PRIMARY KEY \\ \hline
+value 	& VARCHAR(255) 	& NOT NULL \\ \hline
+\end{tabular}
+\end{table}
+
+
 
 \subsection{Tab-Ansicht}
 Zur Navigation zwischen den Haupt-Activities (Padliste, Gruppenliste, ...) entschieden wir uns für eine Tab-Ansicht.
