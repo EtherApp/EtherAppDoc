@@ -142,6 +142,16 @@
 \includegraphics[scale=0.15]{inc/etherapp.png}
 \end{center}
 
+## Links
+
+\begin{center}
+\includegraphics[scale=0.2]{inc/launcher.png}
+\\[2em]
+[ \url{http://etherapp.de/} ]
+\\[1em]
+[ \url{https://github.com/EtherApp/EtherAppDoc/} ]
+\end{center}
+
 ## Fragen
 
 \begin{center}
