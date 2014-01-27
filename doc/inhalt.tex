@@ -38,7 +38,7 @@ Das beinhaltet insbesondere folgende Funktionen:
 
 
 
-\section{Vorgehen}
+\section{Implementierung}
 
 \subsection{Zugriff auf die HTTP-API}
 Das EPL bietet eine umfangreiche HTTP-API\citeque{epl-httpapi} an.
@@ -49,7 +49,13 @@ Für das Projekt EtherApp kam dabei die Implementation\citeque{hollinger} von Jo
 Diese Bibliothek beinhaltet eine Klasse \texttt{EPLiteClient}, welche mit den Zugangsdaten für die EPL-API initialisiert wird.
 Mit einem Objekt dieser Client-Klasse können Anfragen auf die jeweilige API durchgeführt werden, die als Java-Datenstruktur (\texttt{String} oder \texttt{HashMap}) zurückgegeben werden.
 
-\subsection{Selbst definierte Listen}
+\Huge{Welches Datenformat bekommen wir vom Pad}
+
+\Huge{Wie sieht eine Hashmap aus zum Beispiel Padhash. Wie ist die Struktur im vergleich zum JSON}
+
+\normalsize
+
+\subsection{Listen}
 Das Android-SDK stellt mit dem \texttt{ListView} ein View-Element zur Verfügung, mit dem Elemente in einer scrollbaren Liste angezeigt werden können.\\
 Zur Anpassung von Daten und das tatsächliche Darstellen in der Liste wird ein Adapter benötigt.
 Android stellt bereits eine Reihe von Adaptern zur Verfügung (\texttt{BaseAdapter}, \texttt{ArrayAdapter}, …).
@@ -57,7 +63,10 @@ Deren Nachteil ist jedoch eine festgelegte Darstellungsweise, denn auf einem Lis
 In unserem Anwendungsfall sollten in den Listenelementen der Padliste neben dem eigentlichen Pad-Namen zusätzliche Statusinformationen zum Pad sowie ein Löschen-Button angezeigt werden.
 Dieses Ziel konnte nur mit einem eigenen Adapter\footnote{\texttt{de.etherapp.adapters.PadlistBaseAdapter}} und einem selbst gestalteten Listenelement\footnote{\texttt{de.etherapp.beans.PadlistItem}} erreicht werden.
 
-\subsection{Asynchrones Laden der Listenelemente}
+\Huge{Abbildung der PadListe}
+\normalsize
+
+\subsubsection{Asynchrones Laden der Listenelemente}
 Um eine komplette Padliste inklusive der Metadaten zu jedem Pad abzurufen, sind folgende Anfragen an die HTTP-API nötig:
 \begin{itemize}
 	\item Abrufen der Padliste (nur IDs)
@@ -86,6 +95,9 @@ Jeweils eine API kann zur Verwendung ausgewählt werden.
 Beim Start der App wird die zuletzt ausgewählte API verwendet.
 Startet die App zum ersten Mal, wird der Benutzer direkt zum Anlegen einer neuen API aufgefordert.
 
+\Huge{Welche Daten werden benötigt. Liste?}
+\normalsize
+
 \subsection{Persistenter Datenspeicher}
 Einige Parameter der EtherApp müssen persistent gespeichert werden, z.B. die vom Benutzer definierten APIs und Grundeinstellungen.
 Für diese Aufgabe gibt es zwei\\
@@ -102,6 +114,9 @@ Android stellt bereits  die nötigen Schnittstellen für SQLite-Datenbanken zur 
 Die Daten lassen sich mit einer relationalen Datenbank wesentlich leichter auslesen und verändern, obgleich die Implementation und Einrichtung etwas aufwendiger ist, als für die Shared Preferences.\\
 Zum Zugriff auf die Datenbank wurde die Klasse \texttt{de.etherapp.sql.DBHandler} als Extension der Elternklasse \texttt{SQLiteOpenHelper} angelegt.
 Sie stellt die Datenbank für den Schreib- oder Lesezugriff zur Verfügung und regelt die Initialisierung der Datenbank beim ersten Start der App oder beim Upgrade.
+
+\Huge{Tabellen der Datenbank in Tabelle}
+\normalsize
 
 \subsection{Datenstruktur}
 Alle Daten (APIs, Pads, Gruppen) der EtherApp werden in einer Klassenstruktur gespeichert. Die gesamte Struktur ist in \autoref{fig:klassendiagramm} dargestellt.\\
@@ -121,5 +136,12 @@ Die Klasse \texttt{PadThread} ruft beim Start die komplette Liste aller Pads asy
 	  \label{fig:klassendiagramm}
 \end{figure}
 
-\subsection{Tab-Ansicht}
+\subsection{Tab-Activitiy}
+
+\section{Vebesserungen}
+\label{sec:Vebesserungen}
+
+
+\section{Fazit}
+\label{sec:Fazit}
 
