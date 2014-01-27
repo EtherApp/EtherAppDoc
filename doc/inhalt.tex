@@ -106,7 +106,7 @@ Startet die App zum ersten Mal, wird der Benutzer direkt zum Anlegen einer neuen
           \hline
           \hline API-Name & eindeutiger Name einer EPL-Instanz\\
           \hline URL & Adresse der API\\
-          \hline Port & Verwendeter Port\\
+          \hline Port & verwendeter Port\\
           \hline API-Key & geheimer Schlüssel für den Zugriff\\
           \hline
       \end{tabular}
@@ -141,9 +141,10 @@ Die Struktur der Datenbanktabellen ist nachfolgend dargestellt.
 \begin{table}[h!]
 	\begin{center}
 		\footnotesize
-		\begin{tabular}{|l|l|l|}
+		\begin{tabular}{|p{2.5cm}|p{3.5cm}|p{3cm}|}
 			\hline
 			\multicolumn{3}{|c|}{\textbf{ea\_padapi}} \\ \hline
+			\hline
 			apiid 	& VARCHAR(64) 	& PRIMARY KEY \\ \hline
 			apiname	& VARCHAR(255) 	& NOT NULL \\ \hline
 			apiurl 	& VARCHAR(255) 	& NOT NULL \\ \hline
@@ -157,9 +158,10 @@ Die Struktur der Datenbanktabellen ist nachfolgend dargestellt.
 \begin{table}[h!]
 	\begin{center}
 		\footnotesize
-		\begin{tabular}{|l|l|l|}
+		\begin{tabular}{|p{2.5cm}|p{3.5cm}|p{3cm}|}
 			\hline
 			\multicolumn{3}{|c|}{\textbf{ea\_pref}} \\ \hline
+			\hline
 			name 	& VARCHAR(255) 	& PRIMARY KEY \\ \hline
 			value 	& VARCHAR(255) 	& NOT NULL \\ \hline
 		\end{tabular}
