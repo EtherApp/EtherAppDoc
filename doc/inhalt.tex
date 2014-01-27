@@ -44,10 +44,22 @@ Das beinhaltet insbesondere folgende Funktionen:
 Das EPL bietet eine umfangreiche HTTP-API\citeque{epl-httpapi} an.
 Sie stellt eine Reihe von Funktionen für administrative Aufgaben bereit, die über die offene Weboberfläche nicht zur Verfügung stehen.
 Der Zugriff auf die API ist nur mit einem Shared Secret (API Key) möglich, der vom Administrator festgelegt werden muss.\\
+Die API gibt Antworten in JavaScript Object Notation (JSON) zurück.
+Damit lassen sich Arrays oder einfache Strings gleichermaßen per HTTP übertragen.
+Ein Beispiel für einen Rückgabewert aus der API ist in \autoref{lst:listallpadsjson} dargestellt (Methode \texttt{listAllPads}).
+\begin{lstlisting}[caption=Rückgabewert der API zur Methode listAllPads,label=lst:listallpadsjson]
+{"code":0,"message":"ok","data":{"padIDs":["interrail","interview","jabberstatusdienst,"java","Java","java2"]}}
+\end{lstlisting}
+
 Für den Zugriff auf die API existieren bereits Java-Bibliotheken, die alle API-Funktionen auf Methoden einer Java-Klasse abbilden.
 Für das Projekt EtherApp kam dabei die Implementation\citeque{hollinger} von Jordan Hollinger zum Einsatz.\\
 Diese Bibliothek beinhaltet eine Klasse \texttt{EPLiteClient}, welche mit den Zugangsdaten für die EPL-API initialisiert wird.
 Mit einem Objekt dieser Client-Klasse können Anfragen auf die jeweilige API durchgeführt werden, die als Java-Datenstruktur (\texttt{String} oder \texttt{HashMap}) zurückgegeben werden.
+
+
+
+
+
 
 \subsection{Selbst definierte Listen}
 Das Android-SDK stellt mit dem \texttt{ListView} ein View-Element zur Verfügung, mit dem Elemente in einer scrollbaren Liste angezeigt werden können.\\
@@ -167,8 +179,6 @@ Die Struktur der Datenbanktabellen ist nachfolgend dargestellt.
 		\end{tabular}
 	\end{center}
 \end{table}
-
-
 
 
 \subsection{TabActivity}

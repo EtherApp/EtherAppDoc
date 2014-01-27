@@ -43,6 +43,7 @@
 
 \usepackage{multirow}
 \usepackage{amssymb}
+\usepackage{MnSymbol}
 %Beispiele fuer manuelle Silbentrennung
 % Silbentrennung direkt mit /- oder /"
 %\hyphenation{ge-wuensch-ten} 
@@ -58,6 +59,20 @@
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 
 \usepackage{listings} %fuer listings von quellcode
+\lstset{
+	numbers=left,
+	numberfirstline=false,
+	numberstyle=\tiny,
+	numbersep=5pt,
+	frame=single,
+	basicstyle=\footnotesize\ttfamily,
+	breaklines=true,
+	showstringspaces=false,
+	commentstyle=\color{gray},
+	% keywordstyle=\color{black},
+	postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\rcurvearrowse\space}}
+}
+
 \lstdefinestyle{customhtml}{
   numbers=left,
   numberfirstline=false,
