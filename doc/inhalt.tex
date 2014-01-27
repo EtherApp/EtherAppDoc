@@ -38,8 +38,8 @@ Das beinhaltet insbesondere folgende Funktionen:
 
 
 
-\section{Vorgehen}
-
+\section{Implementation}
+\label{sec:implem}
 \subsection{Zugriff auf die HTTP-API}
 Das EPL bietet eine umfangreiche HTTP-API\citeque{epl-httpapi} an.
 Sie stellt eine Reihe von Funktionen für administrative Aufgaben bereit, die über die offene Weboberfläche nicht zur Verfügung stehen.
@@ -53,7 +53,7 @@ Ein Beispiel für einen Rückgabewert aus der API ist in \autoref{lst:listallpad
 
 Für den Zugriff auf die API existieren bereits Java-Bibliotheken, die alle API-Funktionen auf Methoden einer Java-Klasse abbilden.
 Für das Projekt EtherApp kam dabei die Implementation\citeque{hollinger} von Jordan Hollinger zum Einsatz.\\
-Diese Bibliothek beinhaltet eine Klasse \texttt{EPLiteClient}, welche mit den Zugangsdaten für die EPL-API initialisiert wird.
+Diese Bibliothek beinhaltet eine Klasse \texttt{EPLiteClient}, welche mit den Zugangsdaten für die EPL-API initialisiert wird (siehe auch \autoref{sub:implem:eplinstanzen}).
 Mit einem Objekt dieser Client-Klasse können Anfragen auf die jeweilige API durchgeführt werden, die als Java-Datenstruktur (\texttt{String} oder \texttt{HashMap}) zurückgegeben werden.
 
 
@@ -100,6 +100,7 @@ Das asynchrone Laden ist beim Scrollen der Liste an der Zeitverzögerung zu erke
 
 \newpage
 \subsection{Verwaltung mehrerer EPL-Instanzen}
+\label{sub:implem:eplinstanzen}
 Zur Verwaltung mehrerer Instanzen des EPL auf verschiedenen Servern wurde eine Profilverwaltung implementiert.
 Die benötigten Informationen für den Zugriff auf eine EPL-Instanz sind in \autoref{tbl:EPLi} zu sehen.
 In den Einstellungen können Daten für verschiedene APIs eingetragen werden.
