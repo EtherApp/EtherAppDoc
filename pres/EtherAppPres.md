@@ -26,14 +26,14 @@
 * Zugriff nur über die HTTP API
 
 \begin{center}
-\includegraphics[scale=0.14]{inc/etherpad.png}
+\includegraphics[scale=0.11]{inc/etherpad.png}
 \end{center}
 
 # Zielstellung
 
 ## Überblick
 \begin{center}
-\huge{\textbf{Komfortabler Zugriff auf administrative Bestandteile des EPL via App}}
+\LARGE{\textbf{Komfortabler Zugriff auf administrative Bestandteile des EPL via App}}
 \end{center}
 
 
@@ -100,7 +100,7 @@
 ### Problem
 1) Persistente Speicherung zur Verwaltung der Daten
 
-### Lösungsmöglichkeiten
+### Möglichkeiten
 * SharedPreferences
 * Sqlite Datenbank
 
@@ -126,7 +126,7 @@
 ## 
 
 \begin{center}
-\includegraphics[scale=0.15]{inc/IMG_4425.jpg}
+\includegraphics[scale=0.12]{inc/IMG_4425.jpg}
 \end{center}
 
 # Ausblick
@@ -156,7 +156,7 @@
 
 \begin{center}
 \huge{\textbf{Noch Fragen?}}
-\\[3em]
+\\[2em]
 \large{\textrm{"I'm an egotistical bastard, and I name all my projects after myself. First Linux, now git."}}
 \end{center}
 \flushright{\footnotesize{Torvalds, Linus (2007-06-14)}}
