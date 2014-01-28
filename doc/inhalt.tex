@@ -1,8 +1,8 @@
-\section{Systembeschreibung} % (fold)
-\label{sec:system}
+\section{Einführung} % (fold)
+\label{sec:intro}
 
 \subsection{Etherpad Lite}
-\label{sub:system:etherpad}
+\label{sub:intro:etherpad}
 
 \textit{Etherpad Lite}\citeque{etherpad} ist ein kollaborativer Online-Editor.
 Anwender können Textdokumente, sogenannte Pads, gemeinschaftlich und in Echtzeit online bearbeiten.
@@ -36,6 +36,35 @@ Das beinhaltet insbesondere folgende Funktionen:
 	\item Verwaltung mehrerer EPL-Instanzen und Profilverwaltung
 \end{itemize}
 
+
+\section{Systembeschreibung}
+\subsection{Liste aller Pads}
+Nach dem Start zeigt die App eine Liste aller auf dem Server zur Verfügung stehenden Pads.
+Zusätzlich zur Pad-ID werden dem Benutzer weitere Informationen zum jeweiligen Pad angezeigt:
+\begin{itemize}
+	\item Anzahl der aktiven Benutzer
+	\item Anzahl der Revisionen
+	\item Datum der letzten Bearbeitung
+\end{itemize}
+
+Über den X-Button auf der rechten Seite des Listenelements kann das Pad gelöscht werden.
+Durch Anklicken eines Eintrags wird der Inhalt des Pads angezeigt; eine Bearbeitung ist nicht möglich.
+
+\subsection{Liste aller Gruppen}
+Analog zur Liste der Pads kann über den zweiten Tab die Gruppenliste erreicht werden. Gruppen haben im EPL nur Relevanz im Zusammenhang mit einer höherwertigen Applikation, die die Dienste des Pads weiterverwendet (z.B. das Showpad\footnote{http://pad.shownot.es}).
+Im Normalbetrieb einer Standard-EPL-Instanz ist die Gruppen-Funktionalität für den Benutzer nicht zugänglich.
+
+\subsection{Anlegen von Pads und Gruppen}
+Über die Leiste am oberen Bildschirmrand kann die Funktion zum Anlegen eines aufgerufen werden.
+Je nach aktiver Liste kann ein Pad oder eine Gruppe hinzugefügt werden.
+Beim Anlegen eines Pads wird der Benutzer zur Eingabe eines Namens aufgefordert, unter dem das Pad anschließend verfügbar ist.
+
+\subsection{API-Verwaltung}
+Über das Menü kann der Einstellungs-Dialog erreicht werden.
+Hier hat der Benutzer die Möglichkeit, mehrere API-Einstellungen zu speichern und so mehrere Instanzen von EPL zu verwalten.
+In der Liste werden alle angelegten APIs gezeigt.
+Sie können durch Anklicken aufgerufen und anschließend bearbeitet, gelöscht und aktiviert werden.
+Das Löschen einer aktiven oder der einzigen API ist nicht möglich.
 
 
 \section{Implementation}
@@ -72,7 +101,7 @@ Der entgültige Entwurf der Padliste ist in \autoref{fig:Padliste} zu sehen.
     \setlength\fboxsep{0pt}
     %\setlength\fboxrule{0.5pt}
     \fbox{\includegraphics[scale=0.15]{./inc/padliste.png}}
-	  \caption{PadlistActivity mit mehreren PadItems}
+	  \caption{PadlistActivity mit mehreren PadListItems}
 	  \label{fig:Padliste}
 \end{figure}
 
@@ -292,6 +321,7 @@ Eine Hürde stellte hierbei dar, dass die Daten auch dann aktualisiert werden m�
 Diese Fragestellung ist eng verbunden mit dem Lebenszyklus von Activities, siehe \autoref{sub:prob:activities}.
 
 
+\section{Fazit}
 
 
 
