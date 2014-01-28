@@ -252,9 +252,11 @@ In den ersten Iterationen des Projekts wurden diese Punkte in keiner Weise berü
 Nachdem wir feststellen konnten, dass die App bei jedem Fehler aber sofort abstürzt, nahmen wir die Fehlerbehandlung als \textit{must-have} bis zum ersten Release auf.
 Dabei beschränkten wir uns darauf, die Konnektivität und erfolgreiche Authentifizierung an der API zu prüfen.
 
-
 \subsection{Umlaute in Pad-ID}
-
+Die App generiert Fehler, sobald in einer Pad-ID Umlaute oder Sonderzeichen auftreten; das EPL selbst und seine API unterstützen Umlaute jedoch problemlos.
+Die Vermutung fiel schnell auf das URL-Encoding der übergebenen ID.
+Einzelne Versuche führten allerdings zu keinem Erfolg.
+Leider konnten wir den Fehler nicht weiter eingrenzen und vertrauen vorerst auf den erfahrenen Pad-Benutzer, der Pads ohnehin nur mit alphanumerischen Zeichen anlegt.
 
 \subsection{Handling von Activities}
 
