@@ -217,3 +217,15 @@ Die Klasse \texttt{PadThread} ruft beim Start die komplette Liste aller Pads asy
 	  \label{fig:klassendiagramm}
 \end{figure}
 
+
+\section{Probleme bei der Umsetzung}
+Hinsichtlich des Software-Engineering-Prozesses wurde das Modell des Extreme Pair Programming mit Rapid Prototyping verfolgt.
+Die Implementation erfolgte zum großen Teil gemeinschaftlich, mit dem Ziel, einen schnellen Prototypen zu entwickeln.
+Dieses Vorgehen und der Umstand, dass wir uns das weite Feld der Software-Entwicklung auf einer Android-Plattform erst erschließen mussten, führten zu Unsicherheiten in der Umsetzung.\\
+Die bestehenden Konzepte wurden mehrfach überarbeitet und an gewonnene Erkenntnisse angepasst.
+Viele Eigenschaften, die noch zu Beginn des Entwicklungsprozesses sinnvoll erschienen, erwiesen sich später als überflüssig.\\
+Einige Problemstellungen sind nachfolgend kurz beschrieben.
+
+\subsubsection{Asynchrone Netzwerkkommunikation}
+Aus der Theorie ist bekannt, dass blockierende Netzwerkaufrufe nicht im Hauptthread der Anwendung durchgeführt werden sollten, da die gesamte Anwendung (und damit auch das UI) dann blockiert.
+An einigen Stellen (z.B. beim Starten der App und dem initialen Laden der Padliste) kann ein Benutzer eine Wartezeit allerdings in Kauf nehmen.
