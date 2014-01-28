@@ -237,3 +237,24 @@ Einzelne Versuche, die Funktionalität mit Services zu implementieren, scheitert
 Daher entschieden wir uns schlussendlich, Netzwerk auf dem MainThread zu erlauben, obgleich dieses Vorgehen nicht unbedingt der \textit{best practice} entspricht.
 Perspektivisch sollten alle Netzwerkzugriffe über einen \texttt{AsyncTask} ausgeführt werden.
 
+\subsection{Fehlerbehandlung}
+Erst während der Implementation fiel uns auf, wie umfangreich die Fehlerbehandlung bei einer Applikation sein kann, die Daten aus einer anderen Quelle bezieht und nicht nur in sich geschlossen arbeitet.
+Jeder Netzwerkaufruf kann durch verschiedene Faktoren beeinflusst werden:
+\begin{itemize}
+	\item Ist der Internetzugriff aktiviert? (WLAN, GPRS, UMTS)
+	\item Darf die App auf das Internet zugreifen? (Firewall)
+	\item Ist der Verbindungsaufbau überhaupt möglich? (Netzempfang, Störungen auf der Strecke)
+	\item Ist der EPL-Server verfügbar?
+	\item Sind die API-Daten korrekt?
+\end{itemize}
+
+In den ersten Iterationen des Projekts wurden diese Punkte in keiner Weise berücksichtigt und vorerst auf den Idealfall vertraut.
+Nachdem wir feststellen konnten, dass die App bei jedem Fehler aber sofort abstürzt, nahmen wir die Fehlerbehandlung als \textit{must-have} bis zum ersten Release auf.
+Dabei beschränkten wir uns darauf, die Konnektivität und erfolgreiche Authentifizierung an der API zu prüfen.
+
+
+\subsection{Umlaute in Pad-ID}
+
+
+\subsection{Handling von Activities}
+
