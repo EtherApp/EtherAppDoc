@@ -200,6 +200,7 @@ Die Migration auf eine Fragment-Umgebung hätte jedoch eine vollkommene Umstrukt
 
 \newpage
 \subsection{Datenstruktur}
+\label{sub:implem:datenstruktur}
 Alle Daten (APIs, Pads, Gruppen) der EtherApp werden in einer Klassenstruktur gespeichert. Die gesamte Struktur ist in \autoref{fig:klassendiagramm} dargestellt.\\
 Die Wurzel der Struktur ist die statische Klasse \texttt{GlobalConfig}.
 Sie enthält eine \texttt{HashMap} mit allen angelegten APIs, jeweils Objekte der Klasse \texttt{PadAPI}.
@@ -262,6 +263,29 @@ Leider konnten wir den Fehler nicht weiter eingrenzen und vertrauen vorerst auf 
 Gewöhnungsbedürftig ist das Verständnis des Lebenszyklusses von Activities.
 Beim Wechsel der Activities war uns beispielsweise lange nicht klar, in welchem Zustand sich die zu ladende Activity gerade befindet und ob eine neue Activity neu angelegt oder aus dem Hintergrund geholt wird.
 Das gesamte Activity-Handling erfordert nach unserer Erkenntnis sorgfältige Vorüberlegung.
+
+\subsection{Datenstruktur und Caching}
+Ebenfalls unterschätzt haben wir das Handling der vorliegenden Daten.
+Es stellte sich vielfach die Frage nach dem Sinn eines Caching-Mechanismus.
+\begin{itemize}
+	\item kein Caching, Daten immer neu abrufen
+	\item temporäres Caching in Objekten
+	\item persistentes Caching in SQL-Datenbank
+\end{itemize}
+
+In jedem Fall war es für die Umsetzung der Listendarstellungen notwendig, die Datenstruktur in Java-Objekten zu implementieren (siehe \autoref{sub:implem:datenstruktur}).
+In dem Zuge entschieden wir uns dafür, die Daten in dieser Klassenstruktur vorzuhalten und damit eine Art Caching zu etablieren.\\
+Eine weitere Problemstellung war die Frage, wann Daten abgerufen/aktualisiert werden:
+\begin{itemize}
+	\item komplett zum Start der App
+	\item partiell bei Bedarf
+	\item periodisch im Hintergrund
+	\item nur auf Wunsch des Benutzers
+\end{itemize}
+
+Hier setzten wir auf eine hybride Lösung.
+Die Padliste ohne Metadaten wird zum Start der App vollständig abgerufen, die Metadaten und Inhalte der einzelnen Pads bei Bedarf.
+Die Liste kann zudem vom Benutzer manuell aktualisiert werden.
 
 
 
