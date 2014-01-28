@@ -228,4 +228,12 @@ Einige Problemstellungen sind nachfolgend kurz beschrieben.
 
 \subsubsection{Asynchrone Netzwerkkommunikation}
 Aus der Theorie ist bekannt, dass blockierende Netzwerkaufrufe nicht im Hauptthread der Anwendung durchgeführt werden sollten, da die gesamte Anwendung (und damit auch das UI) dann blockiert.
-An einigen Stellen (z.B. beim Starten der App und dem initialen Laden der Padliste) kann ein Benutzer eine Wartezeit allerdings in Kauf nehmen.
+An einigen Stellen (z.B. beim Starten der App und dem initialen Laden der Padliste) kann ein Benutzer eine Wartezeit allerdings in Kauf nehmen.\\
+Der Einfachheit halber (und weil diese Eigenschaft die Bedienbarkeit der App nicht in hohem Maße einschränkt), sollten die meisten Netzwerkaktionen synchron im Hauptthread erfolgen.
+Android verbietet in der Default-Konfiguration jedoch Netzwerkzugriff im Hauptthread (\texttt{android.os.NetworkOnMainThreadException}).\\
+Teilweise konnten wir die Netzwerkaktionen auf Threads auslagern (\texttt{PadThread} zum Abrufen der Padliste ohne Metadaten oder \texttt{Asynctask}s für Metadaten der Pads).
+Einfache Threads haben dann ihre Grenzen, wenn die Daten direkt in ein View-Element geschrieben werden sollen.
+Einzelne Versuche, die Funktionalität mit Services zu implementieren, scheiterten.
+Daher entschieden wir uns schlussendlich, Netzwerk auf dem MainThread zu erlauben, obgleich dieses Vorgehen nicht unbedingt der \textit{best practice} entspricht.
+Perspektivisch sollten alle Netzwerkzugriffe über einen \texttt{AsyncTask} ausgeführt werden.
+
