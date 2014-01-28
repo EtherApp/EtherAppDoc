@@ -260,13 +260,14 @@ Einzelne Versuche führten allerdings zu keinem Erfolg.
 Leider konnten wir den Fehler nicht weiter eingrenzen und vertrauen vorerst auf den erfahrenen Pad-Benutzer, der Pads ohnehin nur mit alphanumerischen Zeichen anlegt.
 
 \subsection{Handling von Activities}
-Gewöhnungsbedürftig ist das Verständnis des Lebenszyklusses von Activities.
+\label{sub:prob:activities}
+Gewöhnungsbedürftig ist das Verständnis vom Lebenszyklus von Activities.
 Beim Wechsel der Activities war uns beispielsweise lange nicht klar, in welchem Zustand sich die zu ladende Activity gerade befindet und ob eine neue Activity neu angelegt oder aus dem Hintergrund geholt wird.
 Das gesamte Activity-Handling erfordert nach unserer Erkenntnis sorgfältige Vorüberlegung.
 
 \subsection{Datenstruktur und Caching}
 Ebenfalls unterschätzt haben wir das Handling der vorliegenden Daten.
-Es stellte sich vielfach die Frage nach dem Sinn eines Caching-Mechanismus.
+Es stellte sich vielfach die Frage nach dem Sinn und der tatsächlichen Umsetzung eines Caching-Mechanismus:
 \begin{itemize}
 	\item kein Caching, Daten immer neu abrufen
 	\item temporäres Caching in Objekten
@@ -275,6 +276,7 @@ Es stellte sich vielfach die Frage nach dem Sinn eines Caching-Mechanismus.
 
 In jedem Fall war es für die Umsetzung der Listendarstellungen notwendig, die Datenstruktur in Java-Objekten zu implementieren (siehe \autoref{sub:implem:datenstruktur}).
 In dem Zuge entschieden wir uns dafür, die Daten in dieser Klassenstruktur vorzuhalten und damit eine Art Caching zu etablieren.\\
+\\
 Eine weitere Problemstellung war die Frage, wann Daten abgerufen/aktualisiert werden:
 \begin{itemize}
 	\item komplett zum Start der App
@@ -285,7 +287,9 @@ Eine weitere Problemstellung war die Frage, wann Daten abgerufen/aktualisiert we
 
 Hier setzten wir auf eine hybride Lösung.
 Die Padliste ohne Metadaten wird zum Start der App vollständig abgerufen, die Metadaten und Inhalte der einzelnen Pads bei Bedarf.
-Die Liste kann zudem vom Benutzer manuell aktualisiert werden.
+Die Liste kann zudem vom Benutzer manuell aktualisiert werden.\\
+Eine Hürde stellte hierbei dar, dass die Daten auch dann aktualisiert werden müssen, wenn der Benutzer eine andere API auswählt, nicht jedoch, wenn die PadListActivity kurz verlassen wird.
+Diese Fragestellung ist eng verbunden mit dem Lebenszyklus von Activities, siehe \autoref{sub:prob:activities}.
 
 
 
