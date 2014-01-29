@@ -39,8 +39,9 @@ Das beinhaltet insbesondere folgende Funktionen:
 
 \section{Systembeschreibung}
 \subsection{Liste aller Pads}
-Nach dem Start zeigt die App eine Liste aller auf dem Server zur Verfügung stehenden Pads.
+Nach dem Start zeigt die App eine Liste aller auf dem Server zur Verfügung stehenden Pads (s. \autoref{fig:Padliste}).
 Zusätzlich zur Pad-ID werden dem Benutzer weitere Informationen zum jeweiligen Pad angezeigt:
+
 \begin{itemize}
 	\item Anzahl der aktiven Benutzer
 	\item Anzahl der Revisionen
@@ -48,24 +49,69 @@ Zusätzlich zur Pad-ID werden dem Benutzer weitere Informationen zum jeweiligen 
 \end{itemize}
 
 Über den X-Button auf der rechten Seite des Listenelements kann das Pad gelöscht werden.
-Durch Anklicken eines Eintrags wird der Inhalt des Pads angezeigt; eine Bearbeitung ist nicht möglich.
+Durch das Anklicken eines Eintrags kann der Inhalt eines Pads angezeigt werden (s. \autoref{fig:text}), eine Bearbeitung ist jedoch nicht möglich.
+
+\begin{figure}[h!]
+    \centering
+    \setlength\fboxsep{0pt}
+    %\setlength\fboxrule{0.5pt}
+    \fbox{\includegraphics[scale=0.15]{./inc/padliste.png}}
+	  \caption{Anzeigen der Padliste (PadlistActivity)}
+	  \label{fig:Padliste}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \setlength\fboxsep{0pt}
+    %\setlength\fboxrule{0.5pt}
+    \fbox{\includegraphics[scale=0.15]{./inc/text.png}}
+	  \caption{Anzeigen des Inhalts (PadContentActivity)}
+	  \label{fig:text}
+\end{figure}
 
 \subsection{Liste aller Gruppen}
-Analog zur Liste der Pads kann über den zweiten Tab die Gruppenliste erreicht werden. Gruppen haben im EPL nur Relevanz im Zusammenhang mit einer höherwertigen Applikation, die die Dienste des Pads weiterverwendet (z.B. das Showpad\footnote{http://pad.shownot.es}).
+Analog zur Liste der Pads kann über den zweiten Tab die Gruppenliste (s. \autoref{fig:Gruppenliste}) erreicht werden.
+Gruppen haben im EPL nur Relevanz im Zusammenhang mit einer höherwertigen Applikation, die die Dienste des Pads weiterverwendet (z.B. das Showpad\footnote{http://pad.shownot.es}).
 Im Normalbetrieb einer Standard-EPL-Instanz ist die Gruppen-Funktionalität für den Benutzer nicht zugänglich.
 
+\begin{figure}[h!]
+    \centering
+    \setlength\fboxsep{0pt}
+    %\setlength\fboxrule{0.5pt}
+    \fbox{\includegraphics[scale=0.15]{./inc/groups.png}}
+	  \caption{Anzeigen der Gruppenliste (GrouplistActivity)}
+	  \label{fig:Gruppenliste}
+\end{figure}
+
 \subsection{Anlegen von Pads und Gruppen}
-Über die Leiste am oberen Bildschirmrand kann die Funktion zum Anlegen eines Objekts aufgerufen werden.
+Über die Leiste am oberen Bildschirmrand kann die Funktion zum Anlegen eines Objekts aufgerufen werden (s. \autoref{fig:create}).
 Je nach aktiver Liste kann ein Pad oder eine Gruppe hinzugefügt werden.
 Beim Anlegen eines Pads wird der Benutzer zur Eingabe eines Namens aufgefordert, unter dem das Pad anschließend verfügbar ist.
 
+\begin{figure}[h!]
+    \centering
+    \setlength\fboxsep{0pt}
+    %\setlength\fboxrule{0.5pt}
+    \fbox{\includegraphics[scale=0.15]{./inc/create.png}}
+	  \caption{Anlegen eines neuen Pads}
+	  \label{fig:create}
+\end{figure}
+
 \subsection{API-Verwaltung}
-Über das Menü kann der Einstellungs-Dialog erreicht werden.
+Über das Menü kann der Einstellungs-Dialog erreicht werden (s. \autoref{fig:settings}).
 Hier hat der Benutzer die Möglichkeit, mehrere API-Einstellungen zu speichern und so mehrere Instanzen von EPL zu verwalten.
 In der Liste werden alle angelegten APIs gezeigt.
 Sie können durch Anklicken aufgerufen und anschließend bearbeitet, gelöscht und aktiviert werden.
 Das Löschen einer aktiven oder der einzigen API ist nicht möglich.
 
+\begin{figure}[h!]
+    \centering
+    \setlength\fboxsep{0pt}
+    %\setlength\fboxrule{0.5pt}
+    \fbox{\includegraphics[scale=0.15]{./inc/settings.png}}
+	  \caption{PadlistActivity mit mehreren PadListItems}
+	  \label{fig:settings}
+\end{figure}
 
 \section{Implementation}
 \label{sec:implem}
@@ -85,8 +131,6 @@ Für das Projekt EtherApp kam dabei die Implementation\citeque{hollinger} von Jo
 Diese Bibliothek beinhaltet eine Klasse \texttt{EPLiteClient}, welche mit den Zugangsdaten für die EPL-API initialisiert wird (siehe auch \autoref{sub:implem:eplinstanzen}).
 Mit einem Objekt dieser Client-Klasse können Anfragen auf die jeweilige API durchgeführt werden, die als Java-Datenstruktur (\texttt{String} oder \texttt{HashMap}) zurückgegeben werden.
 
-
-
 \subsection{Selbst definierte Listen}
 Das Android-SDK stellt mit dem \texttt{ListView} ein View-Element zur Verfügung, mit dem Elemente in einer scrollbaren Liste angezeigt werden können.\\
 Zur Anpassung von Daten und das tatsächliche Darstellen in der Liste wird ein Adapter benötigt.
@@ -95,16 +139,6 @@ Deren Nachteil ist jedoch eine festgelegte Darstellungsweise, denn auf einem Lis
 In unserem Anwendungsfall sollten in den Listenelementen der Padliste neben dem eigentlichen Pad-Namen zusätzliche Statusinformationen zum Pad sowie ein Löschen-Button angezeigt werden.
 Dieses Ziel konnte nur mit einem eigenen Adapter\footnote{\texttt{de.etherapp.adapters.PadlistBaseAdapter}} und einem selbst gestalteten Listenelement\footnote{\texttt{de.etherapp.beans.PadlistItem}} erreicht werden.
 Der entgültige Entwurf der Padliste ist in \autoref{fig:Padliste} zu sehen.
-
-\begin{figure}[h!]
-    \centering
-    \setlength\fboxsep{0pt}
-    %\setlength\fboxrule{0.5pt}
-    \fbox{\includegraphics[scale=0.15]{./inc/padliste.png}}
-	  \caption{PadlistActivity mit mehreren PadListItems}
-	  \label{fig:Padliste}
-\end{figure}
-
 
 \subsection{Asynchrones Laden der Listenelemente}
 Um eine komplette Padliste inklusive der Metadaten zu jedem Pad abzurufen, sind folgende Anfragen an die HTTP-API nötig:
@@ -247,7 +281,7 @@ Die Klasse \texttt{PadThread} ruft beim Start die komplette Liste aller Pads asy
 	  \label{fig:klassendiagramm}
 \end{figure}
 
-
+\newpage
 \section{Probleme bei der Umsetzung}
 Hinsichtlich des Software-Engineering-Prozesses wurde das Modell des Extreme Pair Programming mit Rapid Prototyping verfolgt.
 Die Implementation erfolgte zum großen Teil gemeinschaftlich, mit dem Ziel, einen schnellen Prototypen zu entwickeln.
