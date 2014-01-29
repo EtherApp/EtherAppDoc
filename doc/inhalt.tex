@@ -325,14 +325,15 @@ Dabei beschränkte sich die Implementation darauf, die Konnektivität und erfolg
 \subsection{Umlaute in Pad-ID}
 Die App generiert Fehler, sobald in einer Pad-ID Umlaute oder Sonderzeichen auftreten; das EPL selbst und seine API unterstützen Umlaute jedoch problemlos.
 Die Vermutung fiel schnell auf das URL-Encoding der übergebenen ID.
-Einzelne Versuche führten allerdings zu keinem Erfolg.
-Leider konnte der Fehler nicht weiter eingegrenzt werden. Es sollte vorerst auf den erfahrenen Pad-Benutzer vertraut werden, der Pads ohnehin nur mit alphanumerischen Zeichen anlegt.
+Weitere Nachforschungen führten zu der Erkenntnis, dass der Fehler über die Kodierung der an die API übergebenen Strings behoben werden könnte.
+Alternativ könnte auch die Bibliothek zum Zugriff auf die API angepasst werden.
+Leider konnte der Fehler aus zeitlichen Gründen nicht weiter eingegrenzt werden.
 
 \subsection{Handling von Activities}
 \label{sub:prob:activities}
 Gewöhnungsbedürftig war das Verständnis vom Lebenszyklus von Activities.
 Beim Wechsel der Activities war uns beispielsweise lange nicht klar, in welchem Zustand sich die zu ladende Activity gerade befindet und ob eine neue Activity neu angelegt oder aus dem Hintergrund geholt wird.
-Die Lösung bezüglich des Problems war in diesem Fall die Verwendung des Launchmodes \textit{Single-Task}.
+Die Lösung des Problems war in diesem Fall die Verwendung des Launch Modes \textit{Single-Task}.
 
 \newpage
 \subsection{Datenstruktur und Caching}
@@ -346,7 +347,7 @@ Es stellte sich vielfach die Frage nach dem Sinn und der tatsächlichen Umsetzun
 \end{itemize}
 
 In jedem Fall war es für die Umsetzung der Listendarstellungen notwendig, die Datenstruktur in Java-Objekten zu implementieren (siehe \autoref{sub:implem:datenstruktur}).
-In dem Zuge entschieden wir uns dafür, die Daten in dieser Klassenstruktur vorzuhalten und damit eine Art Caching zu etablieren.
+In dem Zuge wurde der Ansatz gewählt, die Daten in dieser Klassenstruktur vorzuhalten und damit eine Art Caching zu etablieren.
 
 Eine weitere Problemstellung war die Frage, wann Daten abgerufen/aktualisiert werden:
 
@@ -357,7 +358,7 @@ Eine weitere Problemstellung war die Frage, wann Daten abgerufen/aktualisiert we
 	\item nur auf Wunsch des Benutzers
 \end{itemize}
 
-Hier setzten wir auf eine hybride Lösung.
+Hier wurde auf eine hybride Lösung gesetzt.
 Die Padliste ohne Metadaten wird zum Start der App vollständig abgerufen, die Metadaten und Inhalte der einzelnen Pads bei Bedarf.
 Die Liste kann zudem vom Benutzer manuell aktualisiert werden.\\
 Eine Hürde stellte hierbei dar, dass die Daten auch dann aktualisiert werden müssen, wenn der Benutzer eine andere API auswählt, nicht jedoch, wenn die PadListActivity kurz verlassen wird.
@@ -385,8 +386,8 @@ Im Ausblick auf die folgende Entwicklung der App sind dabei z.B. folgende Erweit
 \end{itemize}
 
 Das Projekt hat uns einen umfassenden Einblick in die Entwicklung mobiler Anwendungen auf einer Android-Plattform geben können.
-Java war uns als Programmiersprache bereits geläufig, die Android-spezifischen Elemente und Eigenschaften mussten wir uns erst erschließen.
+Java war uns als Programmiersprache bereits vertraut, die Android-spezifischen Elemente und Eigenschaften mussten wir uns aber erst erschließen.
 Auch konnte uns die Arbeit die besonderen Anforderungen an Software-Entwicklung im Umfeld mobiler Applikationen näher bringen und wertvollen Erfahrungsschatz vermitteln.\\
 Mit der EtherApp ist eine produktiv verwendbare Applikation entstanden, die uns zur Verwaltung unserer eigenen EPL-Instanzen dient.
 
-Der Quellcode der Applikation ist frei auf Github\footnote{https://github.com/EtherApp/EtherApp} verfügbar.
+Der Quellcode der Applikation ist frei auf Github\footnote{\url{https://github.com/EtherApp/EtherApp}} verfügbar.
