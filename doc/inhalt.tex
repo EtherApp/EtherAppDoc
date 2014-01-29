@@ -122,7 +122,8 @@ Der Zugriff auf die API ist nur mit einem Shared Secret (API-Key) möglich, das 
 Die API gibt Antworten in JavaScript Object Notation (JSON) zurück.
 Damit lassen sich Arrays oder einfache Strings gleichermaßen per HTTP übertragen.
 Ein Beispiel für einen Rückgabewert aus der API ist in \autoref{lst:listallpadsjson} dargestellt (Methode \texttt{listAllPads}).
-\begin{lstlisting}[caption=Rückgabewert der API zur Methode listAllPads,label=lst:listallpadsjson]
+\\[1em]
+\begin{lstlisting}[caption=Rückgabewert der API zur Methode listAllPads,captionpos=b,label=lst:listallpadsjson]
 {"code":0,"message":"ok","data":{"padIDs":["interrail","interview","jabberstatusdienst,"java","Java","java2"]}}
 \end{lstlisting}
 
@@ -203,8 +204,8 @@ Wir entschieden uns daher für eine Migration auf \textbf{SQLite}, ein leichtgew
 Android stellt bereits  die nötigen Schnittstellen für SQLite-Datenbanken zur Verfügung.
 Die Daten lassen sich mit einer relationalen Datenbank wesentlich leichter auslesen und verändern, obgleich die Implementation und Einrichtung etwas aufwendiger ist, als für die Shared Preferences.\\
 Zum Zugriff auf die Datenbank wurde die Klasse \texttt{de.etherapp.sql.DBHandler} als Extension der Elternklasse \texttt{SQLiteOpenHelper} angelegt.
-Sie stellt die Datenbank für den Schreib- oder Lesezugriff zur Verfügung und regelt die Initialisierung der Datenbank beim ersten Start der App oder beim Upgrade.\\
-\\
+Sie stellt die Datenbank für den Schreib- oder Lesezugriff zur Verfügung und regelt die Initialisierung der Datenbank beim ersten Start der App oder beim Upgrade.
+
 Für die EtherApp wurden zwei Tabellen angelegt.
 \texttt{ea\_padapi} beinhaltet alle Parameter für die API-Definition.
 Zur Identifizierung eines Datensatzes wird eine interne UUID verwendet.
@@ -297,10 +298,11 @@ Der Einfachheit halber (und weil diese Eigenschaft die Bedienbarkeit der App nic
 Android verbietet in der Default-Konfiguration jedoch Netzwerkzugriff im Hauptthread (\texttt{android.os.NetworkOnMainThreadException}).\\
 Teilweise konnten wir die Netzwerkaktionen auf Threads auslagern (\texttt{PadThread} zum Abrufen der Padliste ohne Metadaten oder \texttt{Asynctask}s für Metadaten der Pads).
 Einfache Threads haben allerdings dann ihre Grenzen, wenn die Daten direkt in ein \texttt{View}-Element geschrieben werden sollen.
-Einzelne Versuche, die Funktionalität mit Services zu implementieren, scheiterten.\\
-Daher entschieden wir uns schlussendlich, Netzwerk auf dem MainThread zu erlauben, obgleich dieses Vorgehen nicht unbedingt der \textit{best practice} entspricht.
-Perspektivisch sollten alle Netzwerkzugriffe über einen \texttt{AsyncTask} ausgeführt werden.
+Daher entschieden wir uns, bis zur Implementierung der Threads als \texttt{AysncTask}, vorübergehend Netzwerk auf dem MainThread zu erlauben (s. \autoref{lst:net}).
+\\[1em]
+\lstinputlisting[firstnumber=34, firstline=34, lastline=37, captionpos=b, caption=Erlauben von Netzwerk auf dem Mainthread, label=lst:net]{src/MainActivity.java}
 
+\newpage
 \subsection{Fehlerbehandlung}
 Erst während der Implementation fiel uns auf, wie umfangreich die Fehlerbehandlung bei einer Applikation sein kann, die Daten aus einer anderen Quelle bezieht und nicht nur in sich geschlossen arbeitet.
 Jeder Netzwerkaufruf kann durch verschiedene Faktoren beeinflusst werden:
@@ -324,13 +326,15 @@ Leider konnten wir den Fehler nicht weiter eingrenzen und vertrauen vorerst auf 
 
 \subsection{Handling von Activities}
 \label{sub:prob:activities}
-Gewöhnungsbedürftig ist das Verständnis vom Lebenszyklus von Activities.
+Gewöhnungsbedürftig war das Verständnis vom Lebenszyklus von Activities.
 Beim Wechsel der Activities war uns beispielsweise lange nicht klar, in welchem Zustand sich die zu ladende Activity gerade befindet und ob eine neue Activity neu angelegt oder aus dem Hintergrund geholt wird.
-Das gesamte Activity-Handling erfordert nach unserer Erkenntnis sorgfältige Vorüberlegung.
+Die Lösung bezüglich des Problems war in diesem Fall die Verwendung des Launchmodes \textit{Single-Task}.
 
+\newpage
 \subsection{Datenstruktur und Caching}
 Ebenfalls unterschätzt haben wir das Handling der vorliegenden Daten.
 Es stellte sich vielfach die Frage nach dem Sinn und der tatsächlichen Umsetzung eines Caching-Mechanismus:
+
 \begin{itemize}
 	\item kein Caching, Daten immer neu abrufen
 	\item temporäres Caching in Objekten
@@ -338,9 +342,10 @@ Es stellte sich vielfach die Frage nach dem Sinn und der tatsächlichen Umsetzun
 \end{itemize}
 
 In jedem Fall war es für die Umsetzung der Listendarstellungen notwendig, die Datenstruktur in Java-Objekten zu implementieren (siehe \autoref{sub:implem:datenstruktur}).
-In dem Zuge entschieden wir uns dafür, die Daten in dieser Klassenstruktur vorzuhalten und damit eine Art Caching zu etablieren.\\
-\\
+In dem Zuge entschieden wir uns dafür, die Daten in dieser Klassenstruktur vorzuhalten und damit eine Art Caching zu etablieren.
+
 Eine weitere Problemstellung war die Frage, wann Daten abgerufen/aktualisiert werden:
+
 \begin{itemize}
 	\item komplett zum Start der App
 	\item partiell bei Bedarf
