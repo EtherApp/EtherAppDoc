@@ -11,9 +11,9 @@
 * Javascript/Node.js
 
 ### Ermöglicht
-* Gemeinsames schreiben von Text 
+* Gemeinsames Schreiben von Text über ein Webfrontend
 * Export in andere Formate
-* Zugriff via HTTP API
+* Administrativer Zugriff via HTTP-API
 
 ### Links 
 [http://etherpad.org/](http://etherpad.org/)
@@ -23,7 +23,7 @@
 ## Motivation
 
 * Keine Oberfläche zur Administration eines EPL
-* Zugriff nur über die HTTP API
+* Zugriff nur über die HTTP-API
 
 \begin{center}
 \includegraphics[scale=0.14]{inc/etherpad.png}
@@ -44,9 +44,11 @@
     * (Benutzer online, Revisionen, Datum , …)
 * Anlegen neuer Pads
 * Löschen von Pads
+* Ersetzen des Textes in einem Pad
 * Abruf des Pad-Inhalts
-* Rücksetzen des Inhalts auf ältere Revision
 * Abrufen und Anlegen von Gruppen
+* Anlegen und Verwalten von Autoren
+* Anlegen und Verwalten von Sessions
 
 ## Ausgewählte Features
 
@@ -55,7 +57,7 @@
     * (Benutzer online, Revisionen, Datum , …)
 * Anlegen neuer Pads
 * Löschen von Pads
-* Anzeige des Pad-Inhalts
+* Anzeige des Inhalts eines Pads
 * Anzeige und Verwaltung von Gruppen
 * Rücksetzen des Inhalts auf ältere Revision
 
@@ -90,7 +92,7 @@
 ### Lösung
 1) Implementierung eines Loaders mit AsyncTask
     * Abruf erst beim Anlegen eines Items
-    * Item wird schon Angezeigt
+    * Item wird schon angezeigt
 
 ### Bestehend
 2) Wie stoppt man die Aktualisierung?
@@ -102,12 +104,12 @@
 
 ### Lösungsmöglichkeiten
 * SharedPreferences
-* Sqlite Datenbank
+* SQLite Datenbank
 
 ### Lösung
-* Sqlite Datenbank mit zwei Tabellen
+* SQLite-Datenbank mit zwei Tabellen
     * Globale Einstellungen
-    * API Liste
+    * API-Liste
 
 ## Threads
 
@@ -133,14 +135,19 @@
 
 ## Wie kann es weiter gehen
 
-* Datenbank der App zurücksetzten
-* Tabs durch modernere Fragmente ersetzten
+* Datenbank der App zurücksetzen
+* Tabs durch Fragmente ersetzen (Deprecated)
 * Zeitgesteuertes Update der Padliste
 * Festlegen des Textes in einem neuen Pad durch den Benutzer
+* Teilen der Pad-URL über soziale Netze, Chat und Email 
+* Benutzerdefinierte Einstellungen zum Appverhalten
+* Verwaltung von Revisionen
 
-\begin{center}
-\includegraphics[scale=0.15]{inc/etherapp.png}
-\end{center}
+### Speziellere Funktionen
+
+* Anlegen von Pads innerhalb einer Gruppe
+* Anzeige und Verwaltung von Autoren
+
 
 ## Links
 
