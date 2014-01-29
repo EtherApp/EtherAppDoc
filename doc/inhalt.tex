@@ -19,14 +19,16 @@ Die Oberfläche des Etherpad Lite ist schlicht und übersichtlich gehalten.
 Sie bietet benutzerrelevante Funktionen, die sich auf ein einzelnes Pad beziehen.
 Administrative Funktionen, die bestimmten Benutzerkreisen vorbehalten bleiben müssen, sind auf der Oberfläche nicht implementiert.
 Es gibt somit keine Möglichkeit, z.B. alle verfügbaren Pads anzuzeigen oder einzelne Pads zu löschen.\\
-Es existiert eine umfangreiche HTTP-API, über die diverse Funktionen verfügbar gemacht werden.
-Für die praktische Verwendung dieser API ist ein Frontend sinnvoll.\\
-Das Projekt EtherApp hat zum Ziel, einen Teil der API-Funktionen abzubilden und eine App zur Administration verschiedener Etherpad-Lite-Instanzen zu entwickeln.
+Es existiert aber eine umfangreiche HTTP-API, über die diverse Funktionen verfügbar gemacht werden.
+Für die praktische Verwendung dieser API ist ein Frontend sinnvoll, welches aber nicht von der Etherpad Foundation zur Verfügung gestellt wird.
+Für die verschiedenen Softwareplattformen ist somit ein eigenes Frontend zu entwickeln.\\
+Für die Android-Plattform existiert ein solches Frontend bisher nicht.
+Das Projekt EtherApp hat zum Ziel, einen Teil der API-Funktionen abzubilden und eine App zur Administration verschiedener Etherpad-Lite-Instanzen auf Android zu entwickeln.
 Das beinhaltet insbesondere folgende Funktionen:
 
 \begin{itemize}
 	\item Anzeige aller Pads
-	\item Anzeige von Meta-Informationen für einzelne Pads (Benutzer online, Revisionen, Datum, …)
+	\item Anzeige von Meta-Informationen für einzelne Pads
 	\item Anlegen neuer Pads
 	\item Löschen von Pads
 	\item Anzeige des Pad-Inhalts
@@ -39,7 +41,7 @@ Das beinhaltet insbesondere folgende Funktionen:
 
 \section{Systembeschreibung}
 \subsection{Liste aller Pads}
-Nach dem Start zeigt die App eine Liste aller auf dem Server zur Verfügung stehenden Pads (siehe \autoref{fig:Padliste}).
+Nach dem Start zeigt die App eine Liste aller ind er EPL-Instanz zur Verfügung stehenden Pads an (siehe \autoref{fig:Padliste}).
 Zusätzlich zur Pad-ID werden dem Benutzer weitere Informationen zum jeweiligen Pad angezeigt:
 
 \begin{itemize}
@@ -71,7 +73,7 @@ Durch das Anklicken eines Eintrags kann der Inhalt eines Pads angezeigt werden (
 
 \subsection{Liste aller Gruppen}
 Analog zur Liste der Pads kann über den zweiten Tab die Gruppenliste (siehe \autoref{fig:Gruppenliste}) erreicht werden.
-Gruppen haben im EPL nur Relevanz im Zusammenhang mit einer höherwertigen Applikation, die die Dienste des Pads weiterverwendet (z.B. das Showpad\footnote{http://pad.shownot.es}).
+Gruppen haben im EPL nur Relevanz im Zusammenhang mit einer höherwertigen Applikation, die die Dienste des Pads weiterverwendet (z.B. das Showpad des Projekts \textit{Die Shownotes}\footnote{\url{http://pad.shownot.es}}).
 Im Normalbetrieb einer Standard-EPL-Instanz ist die Gruppen-Funktionalität für den Benutzer nicht zugänglich.
 
 \begin{figure}[h!]
@@ -101,7 +103,7 @@ Beim Anlegen eines Pads wird der Benutzer zur Eingabe eines Namens aufgefordert,
 Über das Menü kann der Einstellungs-Dialog erreicht werden (siehe \autoref{fig:settings}).
 Hier hat der Benutzer die Möglichkeit, mehrere API-Einstellungen zu speichern und so mehrere Instanzen von EPL zu verwalten.
 In der Liste werden alle angelegten APIs gezeigt.
-Sie können durch Anklicken aufgerufen und anschließend bearbeitet, gelöscht und aktiviert werden.
+Sie können durch Anklicken aufgerufen und anschließend bearbeitet, gelöscht oder aktiviert werden.
 Das Löschen einer aktiven oder der einzigen API ist nicht möglich.
 
 \begin{figure}[h!]
@@ -134,22 +136,22 @@ Mit einem Objekt dieser Client-Klasse können Anfragen auf die jeweilige API dur
 
 \subsection{Selbst definierte Listen}
 Das Android-SDK stellt mit dem \texttt{ListView} ein View-Element zur Verfügung, mit dem Elemente in einer scrollbaren Liste angezeigt werden können.\\
-Zur Anpassung von Daten und das tatsächliche Darstellen in der Liste wird ein Adapter benötigt.
+Zur Anpassung von Daten und für das tatsächliche Darstellen in der Liste wird ein Adapter benötigt.
 Android stellt bereits eine Reihe von Adaptern zur Verfügung (\texttt{BaseAdapter}, \texttt{ArrayAdapter}, …).
 Deren Nachteil ist jedoch eine festgelegte Darstellungsweise, denn auf einem Listenelement ist lediglich ein \texttt{TextView} dargestellt.\\
 In unserem Anwendungsfall sollten in den Listenelementen der Padliste neben dem eigentlichen Pad-Namen zusätzliche Statusinformationen zum Pad sowie ein Löschen-Button angezeigt werden.
 Dieses Ziel konnte nur mit einem eigenen Adapter\footnote{\texttt{de.etherapp.adapters.PadlistBaseAdapter}} und einem selbst gestalteten Listenelement\footnote{\texttt{de.etherapp.beans.PadlistItem}} erreicht werden.
-Der entgültige Entwurf der Padliste ist in \autoref{fig:Padliste} zu sehen.
+Der endgültige Entwurf der Padliste ist in \autoref{fig:Padliste} zu sehen.
 
 \subsection{Asynchrones Laden der Listenelemente}
 Um eine komplette Padliste inklusive der Metadaten zu jedem Pad abzurufen, sind folgende Anfragen an die HTTP-API nötig:
 \begin{itemize}
-	\item Abrufen der Padliste (nur IDs)
+	\item Abrufen der Padliste (nur IDs) (\texttt{listAllPads})
 	\item Abrufen der Metadaten zu jedem einzelnen Pad
 		\begin{itemize}
-			\item Anzahl der User online
-			\item Anzahl der Revisionen
-			\item Datum der letzten Bearbeitung
+			\item Anzahl der User online (\texttt{padUsersCount})
+			\item Anzahl der Revisionen (\texttt{getRevisionsCount})
+			\item Datum der letzten Bearbeitung (\texttt{getLastEdited})
 		\end{itemize}
 \end{itemize}
 
@@ -166,7 +168,7 @@ Das asynchrone Laden ist beim Scrollen der Liste an der Zeitverzögerung zu erke
 \subsection{Verwaltung mehrerer EPL-Instanzen}
 \label{sub:implem:eplinstanzen}
 Zur Verwaltung mehrerer Instanzen des EPL auf verschiedenen Servern wurde eine Profilverwaltung implementiert.
-Die benötigten Informationen für den Zugriff auf eine EPL-Instanz sind in \autoref{tbl:EPLi} zu sehen.
+Die benötigten Informationen für den Zugriff auf eine EPL-Instanz sind in \autoref{tbl:EPLi} aufgeführt.
 In den Einstellungen können Daten für verschiedene APIs eingetragen werden.
 Jeweils eine API kann zur Verwendung ausgewählt werden.
 Beim Start der App wird die zuletzt ausgewählte API verwendet.
@@ -200,8 +202,8 @@ Dazu wurde dem Schlüssel (z.B. \texttt{apikey}) ein Index angefügt (z.B. \text
 Diese Variante funktionierte, hatte aber ihre Grenzen.
 Da es keine Funktion gibt, alle existierenden Schlüssel abzurufen, musste immer die Anzahl der existierenden APIs mitgespeichert werden, um durch die Liste iterieren zu können.
 Sobald ein Eintrag gelöscht wurde, traten Konsistenzprobleme auf, die nur mit viel Aufwand wieder zu beheben gewesen wären.
-Wir entschieden uns daher für eine Migration auf \textbf{SQLite}, ein leichtgewichtiges relationales Datenbanksystem auf Dateibasis.\\
-Android stellt bereits  die nötigen Schnittstellen für SQLite-Datenbanken zur Verfügung.
+Daher erfolgte die Migration auf \textbf{SQLite}, ein leichtgewichtiges relationales Datenbanksystem auf Dateibasis.\\
+Android stellt bereits die nötigen Schnittstellen für SQLite-Datenbanken zur Verfügung.
 Die Daten lassen sich mit einer relationalen Datenbank wesentlich leichter auslesen und verändern, obgleich die Implementation und Einrichtung etwas aufwendiger ist, als für die Shared Preferences.\\
 Zum Zugriff auf die Datenbank wurde die Klasse \texttt{de.etherapp.sql.DBHandler} als Extension der Elternklasse \texttt{SQLiteOpenHelper} angelegt.
 Sie stellt die Datenbank für den Schreib- oder Lesezugriff zur Verfügung und regelt die Initialisierung der Datenbank beim ersten Start der App oder beim Upgrade.
@@ -244,12 +246,13 @@ Die Struktur der Datenbanktabellen ist nachfolgend dargestellt.
 
 
 \subsection{TabActivity}
-Zur Navigation zwischen den Haupt-Activities (Padliste, Gruppenliste, ...) entschieden wir uns für eine Tab-Ansicht.
-Am oberen Rand des Bildschirms sollte eine Tab-Leiste zu sehen sein, beim Anklicken sollte der Inhaltsbereich unten aktualisiert werden (siehe \autoref{fig:tabactivity}).\\
+Zur Navigation zwischen den Haupt-Activities (Padliste, Gruppenliste, ...) wurde sich für eine Tab-Ansicht entschieden.
+Am oberen Rand des Bildschirms sollte eine Tab-Leiste zu sehen sein. 
+Beim Anklicken sollte der Inhaltsbereich unten aktualisiert werden (siehe \autoref{fig:tabactivity}).\\
 Für diesen Zweck ist das View-Element \texttt{TabHost} entwickelt worden.
 Innerhalb einer \texttt{TabActivity} sorgt es für die Auslieferung von Tabs.
 Es stellt einen Rahmen zur Verfügung, in den je nach aktivem Tab eine Activity geladen wird.\\
-Später fiel uns auf, dass dieses Feature als \textit{deprecated} eingestuft ist und nicht mehr verwendet werden soll.
+Später fiel auf, dass dieses Feature als \textit{deprecated} eingestuft ist und nicht mehr verwendet werden sollte.
 Stattdessen sollen Tab-Ansichten mit sogen. Fragments implementiert werden.
 Die Migration auf eine Fragment-Umgebung hätte jedoch eine vollkommene Umstrukturierung der Software mit sich gebracht und wurde aus Zeitgründen nicht durchgeführt.
 
@@ -286,43 +289,44 @@ Die Klasse \texttt{PadThread} ruft beim Start die komplette Liste aller Pads asy
 \section{Probleme bei der Umsetzung}
 Hinsichtlich des Software-Engineering-Prozesses wurde das Modell des Extreme Pair Programming mit Rapid Prototyping verfolgt.
 Die Implementation erfolgte zum großen Teil gemeinschaftlich, mit dem Ziel, einen schnellen Prototypen zu entwickeln.
-Dieses Vorgehen und der Umstand, dass wir uns das weite Feld der Software-Entwicklung auf einer Android-Plattform erst erschließen mussten, führten zu Unsicherheiten in der Umsetzung.\\
+Dieses Vorgehen und der Umstand, dass das weite Feld der Software-Entwicklung auf einer Android-Plattform erst erschlossen werden musste, führten zu anfänglichen Unsicherheiten in der Umsetzung.\\
 Die bestehenden Konzepte wurden mehrfach überarbeitet und an gewonnene Erkenntnisse angepasst.
-Viele Eigenschaften, die noch zu Beginn des Entwicklungsprozesses sinnvoll erschienen, erwiesen sich später als überflüssig.\\
+Viele Eigenschaften, die noch zu Beginn des Entwicklungsprozesses sinnvoll erschienen, erwiesen sich später als hinfällig.\\
 Einige Problemstellungen sind nachfolgend kurz beschrieben.
 
 \subsection{Asynchrone Netzwerkkommunikation}
-Aus der Theorie ist bekannt, dass blockierende Netzwerkaufrufe nicht im Hauptthread der Anwendung durchgeführt werden sollten, da die gesamte Anwendung (und damit auch das UI) dann blockiert.
+Es ist bekannt, dass blockierende Netzwerkaufrufe nicht im Hauptthread der Anwendung durchgeführt werden sollten, da die gesamte Anwendung (und damit auch das UI) dann blockiert.
 An einigen Stellen (z.B. beim Starten der App und dem initialen Laden der Padliste) kann ein Benutzer eine Wartezeit allerdings in Kauf nehmen.\\
-Der Einfachheit halber (und weil diese Eigenschaft die Bedienbarkeit der App nicht in hohem Maße einschränkt), sollten die meisten Netzwerkaktionen synchron im Hauptthread erfolgen.
+Der Einfachheit halber (und weil diese Eigenschaft die Bedienbarkeit der App nicht in hohem Maße einschränkt), sollten ausgewählte Netzwerkaktionen synchron im Hauptthread erfolgen.
 Android verbietet in der Default-Konfiguration jedoch Netzwerkzugriff im Hauptthread (\texttt{android.os.NetworkOnMainThreadException}).\\
-Teilweise konnten wir die Netzwerkaktionen auf Threads auslagern (\texttt{PadThread} zum Abrufen der Padliste ohne Metadaten oder \texttt{Asynctask}s für Metadaten der Pads).
+Teilweise konnten die Netzwerkaktionen auf Threads ausgelagert (\texttt{PadThread} zum Abrufen der Padliste ohne Metadaten oder \texttt{Asynctask}s für Metadaten der Pads).
 Einfache Threads haben allerdings dann ihre Grenzen, wenn die Daten direkt in ein \texttt{View}-Element geschrieben werden sollen.
-Daher entschieden wir uns, bis zur Implementierung der Threads als \texttt{AysncTask}, vorübergehend Netzwerk auf dem MainThread zu erlauben (siehe \autoref{lst:net}).
+Daher wurde der Workaround gewählt, bis zur Implementierung der Threads als \texttt{AysncTask}, vorübergehend Netzwerk auf dem MainThread zu erlauben (siehe \autoref{lst:net}).
 \\[1em]
 \lstinputlisting[firstnumber=34, firstline=34, lastline=37, captionpos=b, caption=Erlauben von Netzwerk auf dem Mainthread, label=lst:net]{src/MainActivity.java}
 
 \newpage
 \subsection{Fehlerbehandlung}
-Erst während der Implementation fiel uns auf, wie umfangreich die Fehlerbehandlung bei einer Applikation sein kann, die Daten aus einer anderen Quelle bezieht und nicht nur in sich geschlossen arbeitet.
+Erst während der Implementation fiel auf, wie umfangreich die Fehlerbehandlung bei einer Applikation ist, die Daten aus einer anderen Quelle bezieht und nicht nur in sich geschlossen arbeitet.
 Jeder Netzwerkaufruf kann durch verschiedene Faktoren beeinflusst werden:
 \begin{itemize}
 	\item Ist der Internetzugriff aktiviert? (WLAN, GPRS, UMTS)
-	\item Darf die App auf das Internet zugreifen? (Firewall)
+	\item Kann die App auf das Internet zugreifen?
 	\item Ist der Verbindungsaufbau überhaupt möglich? (Netzempfang, Störungen auf der Strecke)
-	\item Ist der EPL-Server verfügbar?
-	\item Sind die API-Daten korrekt?
+	\item Ist die EPL-Instanz verfügbar?
+	\item Sind die Daten für die API-Anmeldung korrekt?
+	\item Sind die Rückgabewerte der API fehlerfrei?
 \end{itemize}
 
 In den ersten Iterationen des Projekts wurden diese Punkte in keiner Weise berücksichtigt und vorerst auf den Idealfall vertraut.
-Nachdem wir feststellen konnten, dass die App bei jedem Fehler aber sofort abstürzt, nahmen wir die Fehlerbehandlung als \textit{must-have} bis zum ersten Release auf.
-Dabei beschränkten wir uns darauf, die Konnektivität und erfolgreiche Authentifizierung an der API zu prüfen.
+Mit der Feststellung, dass die App bei jedem Fehler aber sofort abstürzt, wurde die Fehlerbehandlung als \textit{must-have} bis zum ersten Release aufgenommen.
+Dabei beschränkte sich die Implementation darauf, die Konnektivität und erfolgreiche Authentifizierung an der API zu prüfen.
 
 \subsection{Umlaute in Pad-ID}
 Die App generiert Fehler, sobald in einer Pad-ID Umlaute oder Sonderzeichen auftreten; das EPL selbst und seine API unterstützen Umlaute jedoch problemlos.
 Die Vermutung fiel schnell auf das URL-Encoding der übergebenen ID.
 Einzelne Versuche führten allerdings zu keinem Erfolg.
-Leider konnten wir den Fehler nicht weiter eingrenzen und vertrauen vorerst auf den erfahrenen Pad-Benutzer, der Pads ohnehin nur mit alphanumerischen Zeichen anlegt.
+Leider konnte der Fehler nicht weiter eingegrenzt werden. Es sollte vorerst auf den erfahrenen Pad-Benutzer vertraut werden, der Pads ohnehin nur mit alphanumerischen Zeichen anlegt.
 
 \subsection{Handling von Activities}
 \label{sub:prob:activities}
